@@ -1,0 +1,2268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Interview Prep — Tanay Khobragade</title>
+  <meta name="description" content="Comprehensive interview preparation guide covering Angular, JavaScript, DSA, HR, and Managerial questions.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    /* ===== CSS RESET & ROOT ===== */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      /* Dark palette */
+      --bg-primary: #0a0e17;
+      --bg-secondary: #111827;
+      --bg-card: #1a2236;
+      --bg-card-hover: #1f2a42;
+      --bg-code: #0d1321;
+      --bg-inline-code: #1e293b;
+      --border: #1e3a5f;
+      --border-dim: #1a2744;
+
+      /* Accent colors */
+      --accent-angular: #dd0031;
+      --accent-angular-glow: rgba(221, 0, 49, 0.15);
+      --accent-js: #f7df1e;
+      --accent-js-glow: rgba(247, 223, 30, 0.12);
+      --accent-dsa: #06b6d4;
+      --accent-dsa-glow: rgba(6, 182, 212, 0.12);
+      --accent-hr: #a78bfa;
+      --accent-hr-glow: rgba(167, 139, 250, 0.12);
+      --accent-mgr: #34d399;
+      --accent-mgr-glow: rgba(52, 211, 153, 0.12);
+
+      /* Text */
+      --text-primary: #e2e8f0;
+      --text-secondary: #94a3b8;
+      --text-muted: #64748b;
+      --text-bright: #f8fafc;
+
+      /* Code syntax */
+      --syn-keyword: #c792ea;
+      --syn-string: #c3e88d;
+      --syn-number: #f78c6c;
+      --syn-comment: #546e7a;
+      --syn-function: #82aaff;
+      --syn-type: #ffcb6b;
+      --syn-operator: #89ddff;
+      --syn-tag: #f07178;
+      --syn-attr: #c792ea;
+      --syn-property: #80cbc4;
+      --syn-variable: #eeffff;
+      --syn-punctuation: #89ddff;
+
+      /* Spacing */
+      --radius-sm: 8px;
+      --radius-md: 12px;
+      --radius-lg: 16px;
+      --radius-xl: 20px;
+
+      /* Transitions */
+      --transition-fast: 150ms ease;
+      --transition-normal: 250ms ease;
+      --transition-slow: 400ms cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    html { scroll-behavior: smooth; font-size: 16px; }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      line-height: 1.7;
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    /* ===== BACKGROUND EFFECTS ===== */
+    body::before {
+      content: '';
+      position: fixed;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(ellipse at 20% 50%, rgba(99, 102, 241, 0.04) 0%, transparent 50%),
+                  radial-gradient(ellipse at 80% 20%, rgba(6, 182, 212, 0.03) 0%, transparent 50%),
+                  radial-gradient(ellipse at 50% 80%, rgba(167, 139, 250, 0.03) 0%, transparent 50%);
+      z-index: -1;
+      pointer-events: none;
+    }
+
+    /* ===== SCROLLBAR ===== */
+    ::-webkit-scrollbar { width: 8px; }
+    ::-webkit-scrollbar-track { background: var(--bg-primary); }
+    ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
+    ::-webkit-scrollbar-thumb:hover { background: #2e4a70; }
+
+    /* ===== HEADER ===== */
+    .header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(10, 14, 23, 0.85);
+      backdrop-filter: blur(20px) saturate(1.5);
+      border-bottom: 1px solid var(--border-dim);
+      padding: 0.75rem 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .header-left {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .header-logo {
+      font-size: 1.4rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      background: linear-gradient(135deg, #6366f1, #06b6d4, #a78bfa);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .header-badge {
+      font-size: 0.7rem;
+      font-weight: 600;
+      padding: 0.2rem 0.6rem;
+      background: rgba(99, 102, 241, 0.15);
+      border: 1px solid rgba(99, 102, 241, 0.3);
+      border-radius: 999px;
+      color: #818cf8;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    .header-actions {
+      display: flex;
+      gap: 0.75rem;
+    }
+
+    .btn {
+      padding: 0.5rem 1rem;
+      border-radius: var(--radius-sm);
+      font-family: 'Inter', sans-serif;
+      font-size: 0.8rem;
+      font-weight: 600;
+      border: 1px solid var(--border);
+      background: var(--bg-card);
+      color: var(--text-secondary);
+      cursor: pointer;
+      transition: all var(--transition-normal);
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .btn:hover {
+      background: var(--bg-card-hover);
+      color: var(--text-primary);
+      border-color: #334155;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #6366f1, #8b5cf6);
+      border-color: #7c3aed;
+      color: white;
+    }
+
+    .btn-primary:hover {
+      background: linear-gradient(135deg, #7c3aed, #9333ea);
+      box-shadow: 0 4px 20px rgba(99, 102, 241, 0.3);
+    }
+
+    /* ===== LAYOUT ===== */
+    .layout {
+      display: flex;
+      min-height: calc(100vh - 56px);
+    }
+
+    /* ===== SIDEBAR / TOC ===== */
+    .sidebar {
+      width: 320px;
+      min-width: 320px;
+      background: var(--bg-secondary);
+      border-right: 1px solid var(--border-dim);
+      padding: 1.5rem 0;
+      overflow-y: auto;
+      height: calc(100vh - 56px);
+      position: sticky;
+      top: 56px;
+      transition: transform var(--transition-slow), opacity var(--transition-slow);
+    }
+
+    .sidebar.collapsed {
+      transform: translateX(-100%);
+      opacity: 0;
+      width: 0;
+      min-width: 0;
+      padding: 0;
+      overflow: hidden;
+    }
+
+    .sidebar-title {
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--text-muted);
+      padding: 0 1.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .toc-section {
+      margin-bottom: 0.25rem;
+    }
+
+    .toc-section-header {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      padding: 0.6rem 1.5rem;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      cursor: pointer;
+      transition: all var(--transition-fast);
+      border-left: 3px solid transparent;
+      user-select: none;
+    }
+
+    .toc-section-header:hover {
+      background: rgba(255, 255, 255, 0.03);
+    }
+
+    .toc-section-header .icon { font-size: 1rem; }
+
+    .toc-section-header .chevron {
+      margin-left: auto;
+      font-size: 0.7rem;
+      transition: transform var(--transition-normal);
+      color: var(--text-muted);
+    }
+
+    .toc-section-header.active .chevron {
+      transform: rotate(90deg);
+    }
+
+    .toc-section[data-topic="angular"] .toc-section-header.active { border-left-color: var(--accent-angular); }
+    .toc-section[data-topic="js"] .toc-section-header.active { border-left-color: var(--accent-js); }
+    .toc-section[data-topic="dsa"] .toc-section-header.active { border-left-color: var(--accent-dsa); }
+    .toc-section[data-topic="hr"] .toc-section-header.active { border-left-color: var(--accent-hr); }
+    .toc-section[data-topic="mgr"] .toc-section-header.active { border-left-color: var(--accent-mgr); }
+
+    .toc-items {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height var(--transition-slow);
+    }
+
+    .toc-items.open {
+      max-height: 3000px;
+    }
+
+    .toc-item {
+      display: block;
+      padding: 0.35rem 1.5rem 0.35rem 2.8rem;
+      font-size: 0.78rem;
+      color: var(--text-secondary);
+      text-decoration: none;
+      transition: all var(--transition-fast);
+      border-left: 3px solid transparent;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .toc-item:hover {
+      color: var(--text-primary);
+      background: rgba(255, 255, 255, 0.02);
+    }
+
+    .toc-sub-header {
+      padding: 0.4rem 1.5rem 0.3rem 2.2rem;
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-top: 0.3rem;
+    }
+
+    /* ===== MAIN CONTENT ===== */
+    .main {
+      flex: 1;
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 2rem 2.5rem 4rem;
+    }
+
+    /* ===== TOPIC SECTIONS ===== */
+    .topic-section {
+      margin-bottom: 3rem;
+    }
+
+    .topic-header {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 0.5rem;
+      padding-bottom: 1rem;
+      border-bottom: 2px solid var(--border-dim);
+    }
+
+    .topic-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: var(--radius-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      flex-shrink: 0;
+    }
+
+    .topic-section[data-topic="angular"] .topic-icon { background: var(--accent-angular-glow); border: 1px solid rgba(221,0,49,0.25); }
+    .topic-section[data-topic="js"] .topic-icon { background: var(--accent-js-glow); border: 1px solid rgba(247,223,30,0.2); }
+    .topic-section[data-topic="dsa"] .topic-icon { background: var(--accent-dsa-glow); border: 1px solid rgba(6,182,212,0.25); }
+    .topic-section[data-topic="hr"] .topic-icon { background: var(--accent-hr-glow); border: 1px solid rgba(167,139,250,0.25); }
+    .topic-section[data-topic="mgr"] .topic-icon { background: var(--accent-mgr-glow); border: 1px solid rgba(52,211,153,0.25); }
+
+    .topic-title {
+      font-size: 1.6rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      color: var(--text-bright);
+    }
+
+    .topic-subtitle {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      font-weight: 400;
+      margin-top: 0.15rem;
+    }
+
+    .topic-meta {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      margin-bottom: 1.5rem;
+    }
+
+    /* ===== SUB-SECTIONS ===== */
+    .sub-section-title {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--text-bright);
+      margin: 2rem 0 1rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid var(--border-dim);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .sub-section-title .emoji { font-size: 1.1rem; }
+
+    /* ===== QA CARDS ===== */
+    .qa-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-dim);
+      border-radius: var(--radius-lg);
+      margin-bottom: 1rem;
+      overflow: hidden;
+      transition: all var(--transition-normal);
+    }
+
+    .qa-card:hover {
+      border-color: var(--border);
+      box-shadow: 0 4px 24px rgba(0, 0, 0, 0.2);
+    }
+
+    .qa-question {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+      padding: 1rem 1.25rem;
+      cursor: pointer;
+      user-select: none;
+      transition: background var(--transition-fast);
+    }
+
+    .qa-question:hover {
+      background: rgba(255, 255, 255, 0.02);
+    }
+
+    .qa-number {
+      font-size: 0.7rem;
+      font-weight: 700;
+      padding: 0.2rem 0.55rem;
+      border-radius: 6px;
+      flex-shrink: 0;
+      letter-spacing: 0.02em;
+      margin-top: 0.15rem;
+    }
+
+    .topic-section[data-topic="angular"] .qa-number { background: var(--accent-angular-glow); color: #ff6b8a; border: 1px solid rgba(221,0,49,0.2); }
+    .topic-section[data-topic="js"] .qa-number { background: var(--accent-js-glow); color: #e2c816; border: 1px solid rgba(247,223,30,0.2); }
+    .topic-section[data-topic="dsa"] .qa-number { background: var(--accent-dsa-glow); color: #22d3ee; border: 1px solid rgba(6,182,212,0.2); }
+    .topic-section[data-topic="hr"] .qa-number { background: var(--accent-hr-glow); color: #c4b5fd; border: 1px solid rgba(167,139,250,0.2); }
+    .topic-section[data-topic="mgr"] .qa-number { background: var(--accent-mgr-glow); color: #6ee7b7; border: 1px solid rgba(52,211,153,0.2); }
+
+    .qa-text {
+      flex: 1;
+      font-size: 0.92rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      line-height: 1.5;
+    }
+
+    .qa-toggle {
+      flex-shrink: 0;
+      width: 28px;
+      height: 28px;
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--border-dim);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      transition: all var(--transition-normal);
+      margin-top: 0.1rem;
+    }
+
+    .qa-card.open .qa-toggle {
+      background: rgba(99, 102, 241, 0.15);
+      border-color: rgba(99, 102, 241, 0.3);
+      color: #818cf8;
+      transform: rotate(180deg);
+    }
+
+    .qa-answer {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .qa-card.open .qa-answer {
+      max-height: 50000px;
+    }
+
+    .qa-answer-content {
+      padding: 0 1.25rem 1.25rem;
+      border-top: 1px solid var(--border-dim);
+      margin-top: 0;
+      padding-top: 1rem;
+    }
+
+    .qa-answer-content p {
+      font-size: 0.88rem;
+      color: var(--text-secondary);
+      margin-bottom: 0.75rem;
+      line-height: 1.7;
+    }
+
+    .qa-answer-content strong {
+      color: var(--text-primary);
+      font-weight: 600;
+    }
+
+    .qa-answer-content em {
+      color: var(--text-secondary);
+    }
+
+    /* ===== LISTS ===== */
+    .qa-answer-content ul, .qa-answer-content ol {
+      margin: 0.5rem 0 0.75rem 1.25rem;
+      font-size: 0.88rem;
+      color: var(--text-secondary);
+    }
+
+    .qa-answer-content li {
+      margin-bottom: 0.35rem;
+      line-height: 1.6;
+    }
+
+    .qa-answer-content li strong {
+      color: var(--text-primary);
+    }
+
+    /* ===== TABLES ===== */
+    .table-wrapper {
+      overflow-x: auto;
+      margin: 0.75rem 0;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border-dim);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.82rem;
+    }
+
+    th {
+      background: rgba(99, 102, 241, 0.08);
+      color: var(--text-primary);
+      font-weight: 600;
+      padding: 0.65rem 0.8rem;
+      text-align: left;
+      border-bottom: 1px solid var(--border-dim);
+      white-space: nowrap;
+    }
+
+    td {
+      padding: 0.55rem 0.8rem;
+      border-bottom: 1px solid rgba(30, 42, 68, 0.5);
+      color: var(--text-secondary);
+    }
+
+    tr:last-child td { border-bottom: none; }
+    tr:hover td { background: rgba(255, 255, 255, 0.02); }
+
+    /* ===== CODE BLOCKS ===== */
+    .code-block {
+      position: relative;
+      margin: 0.75rem 0;
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      border: 1px solid var(--border-dim);
+      background: var(--bg-code);
+    }
+
+    .code-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.5rem 1rem;
+      background: rgba(255, 255, 255, 0.02);
+      border-bottom: 1px solid var(--border-dim);
+    }
+
+    .code-lang {
+      font-size: 0.7rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .code-lang-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+    }
+
+    .code-lang-dot.ts { background: #3178c6; }
+    .code-lang-dot.js { background: #f7df1e; }
+    .code-lang-dot.html { background: #e34c26; }
+    .code-lang-dot.css { background: #264de4; }
+    .code-lang-dot.bash { background: #4eaa25; }
+    .code-lang-dot.json { background: #292929; }
+    .code-lang-dot.other { background: #94a3b8; }
+
+    .code-copy {
+      font-size: 0.7rem;
+      color: var(--text-muted);
+      cursor: pointer;
+      padding: 0.2rem 0.5rem;
+      border-radius: 4px;
+      border: none;
+      background: transparent;
+      font-family: 'Inter', sans-serif;
+      transition: all var(--transition-fast);
+    }
+
+    .code-copy:hover {
+      color: var(--text-primary);
+      background: rgba(255, 255, 255, 0.05);
+    }
+
+    .code-copy.copied {
+      color: #34d399;
+    }
+
+    pre {
+      margin: 0;
+      padding: 1rem;
+      overflow-x: auto;
+      font-family: 'JetBrains Mono', 'Fira Code', monospace;
+      font-size: 0.82rem;
+      line-height: 1.65;
+      color: var(--syn-variable);
+      tab-size: 2;
+    }
+
+    pre code {
+      font-family: inherit;
+      background: none !important;
+      padding: 0 !important;
+      border-radius: 0 !important;
+      font-size: inherit;
+    }
+
+    /* Syntax colors */
+    .kw { color: var(--syn-keyword); }
+    .str { color: var(--syn-string); }
+    .num { color: var(--syn-number); }
+    .cmt { color: var(--syn-comment); font-style: italic; }
+    .fn { color: var(--syn-function); }
+    .type { color: var(--syn-type); }
+    .op { color: var(--syn-operator); }
+    .tag { color: var(--syn-tag); }
+    .attr { color: var(--syn-attr); }
+    .prop { color: var(--syn-property); }
+    .punct { color: var(--syn-punctuation); }
+
+    /* Inline code */
+    code {
+      font-family: 'JetBrains Mono', 'Fira Code', monospace;
+      font-size: 0.82em;
+      background: var(--bg-inline-code);
+      color: #e2b4ff;
+      padding: 0.15em 0.45em;
+      border-radius: 5px;
+      border: 1px solid rgba(99, 102, 241, 0.15);
+    }
+
+    /* ===== DIAGRAMS ===== */
+    .diagram-container {
+      margin: 1rem 0;
+      padding: 1.5rem;
+      background: var(--bg-code);
+      border: 1px solid var(--border-dim);
+      border-radius: var(--radius-md);
+      display: flex;
+      justify-content: center;
+      overflow-x: auto;
+    }
+
+    .diagram-container svg {
+      max-width: 100%;
+      height: auto;
+    }
+
+    /* ===== SPECIAL BLOCKS ===== */
+    .tip-block, .note-block, .experience-block {
+      padding: 0.8rem 1rem;
+      border-radius: var(--radius-sm);
+      margin: 0.75rem 0;
+      font-size: 0.84rem;
+      line-height: 1.6;
+    }
+
+    .tip-block {
+      background: rgba(52, 211, 153, 0.06);
+      border-left: 3px solid #34d399;
+      color: #6ee7b7;
+    }
+
+    .note-block {
+      background: rgba(99, 102, 241, 0.06);
+      border-left: 3px solid #6366f1;
+      color: #a5b4fc;
+    }
+
+    .experience-block {
+      background: rgba(251, 191, 36, 0.06);
+      border-left: 3px solid #fbbf24;
+      color: #fcd34d;
+    }
+
+    .checklist { list-style: none; margin-left: 0 !important; }
+    .checklist li::before { content: '✅ '; }
+
+    /* ===== PROGRESS TRACKER ===== */
+    .progress-bar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 3px;
+      background: linear-gradient(90deg, #6366f1, #06b6d4, #a78bfa);
+      z-index: 999;
+      transition: width 100ms ease-out;
+      border-radius: 0 2px 2px 0;
+    }
+
+    /* ===== FLOATING CONTROLS ===== */
+    .floating-controls {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      z-index: 90;
+    }
+
+    .fab {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      border: 1px solid var(--border);
+      background: var(--bg-card);
+      color: var(--text-secondary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 1.2rem;
+      transition: all var(--transition-normal);
+      backdrop-filter: blur(10px);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    }
+
+    .fab:hover {
+      background: var(--bg-card-hover);
+      color: var(--text-primary);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 30px rgba(0, 0, 0, 0.4);
+    }
+
+    /* ===== SEARCH BAR ===== */
+    .search-wrapper {
+      padding: 0 1rem;
+      margin-bottom: 1rem;
+    }
+
+    .search-input {
+      width: 100%;
+      padding: 0.55rem 0.8rem 0.55rem 2.2rem;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border-dim);
+      background: var(--bg-card);
+      color: var(--text-primary);
+      font-size: 0.82rem;
+      font-family: 'Inter', sans-serif;
+      outline: none;
+      transition: all var(--transition-normal);
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' fill='%2364748b' viewBox='0 0 24 24'%3E%3Cpath d='M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: 0.7rem center;
+    }
+
+    .search-input:focus {
+      border-color: #6366f1;
+      box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+    }
+
+    .search-input::placeholder { color: var(--text-muted); }
+
+    /* ===== STATS BAR ===== */
+    .stats-bar {
+      display: flex;
+      gap: 0.5rem;
+      padding: 0 1.5rem;
+      margin-bottom: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .stat {
+      font-size: 0.68rem;
+      padding: 0.25rem 0.6rem;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--border-dim);
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      gap: 0.3rem;
+    }
+
+    .stat .dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+    }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 1024px) {
+      .sidebar {
+        position: fixed;
+        left: 0;
+        top: 56px;
+        z-index: 50;
+        box-shadow: 4px 0 30px rgba(0, 0, 0, 0.5);
+        height: calc(100vh - 56px);
+      }
+      .sidebar.collapsed { transform: translateX(-100%); }
+      .main { padding: 1.5rem; }
+    }
+
+    @media (max-width: 640px) {
+      .header { padding: 0.75rem 1rem; flex-wrap: wrap; gap: 10px; }
+      .header-actions { width: 100%; display: flex; justify-content: space-between; }
+      .btn { flex: 1; justify-content: center; padding: 0.4rem 0.5rem; }
+      .main { padding: 1rem; margin-top: 1rem; }
+      .sidebar { width: 280px; min-width: 280px; top: 100px; height: calc(100vh - 100px); }
+      .topic-title { font-size: 1.3rem; }
+      pre { font-size: 0.75rem; }
+      .qa-question { flex-direction: column; }
+      .qa-toggle { position: absolute; right: 1rem; top: 1rem; }
+      .qa-card { position: relative; }
+    }
+
+    /* ===== ANIMATIONS ===== */
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(12px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .qa-card { animation: fadeInUp 0.3s ease forwards; }
+    .topic-section { animation: fadeInUp 0.4s ease forwards; }
+
+    /* Search highlight */
+    .qa-card.search-hidden { display: none; }
+    .qa-card .highlight { background: rgba(251, 191, 36, 0.25); color: #fbbf24; border-radius: 2px; padding: 0 2px; }
+  </style>
+</head>
+<body>
+
+<!-- Progress bar -->
+<div class="progress-bar" id="progressBar"></div>
+
+<!-- Header -->
+<header class="header">
+  <div class="header-left">
+    <span class="header-logo">📚 Interview Prep</span>
+    <span class="header-badge">Deloitte MSE II</span>
+  </div>
+  <div class="header-actions">
+    <button class="btn" id="toggleSidebar" onclick="toggleSidebar()">☰ TOC</button>
+    <button class="btn" id="expandAllBtn" onclick="toggleAllAnswers(true)">👁 Show All</button>
+    <button class="btn" id="collapseAllBtn" onclick="toggleAllAnswers(false)">🙈 Hide All</button>
+  </div>
+</header>
+
+<div class="layout">
+  <!-- Sidebar / TOC -->
+  <nav class="sidebar" id="sidebar">
+    <div class="sidebar-title">Table of Contents</div>
+    <div class="search-wrapper">
+      <input type="text" class="search-input" id="searchInput" placeholder="Search questions..." oninput="handleSearch(this.value)">
+    </div>
+
+    <div class="stats-bar">
+      <span class="stat"><span class="dot" style="background:var(--accent-angular)"></span>Angular: 20</span>
+      <span class="stat"><span class="dot" style="background:var(--accent-js)"></span>JS: 25</span>
+      <span class="stat"><span class="dot" style="background:var(--accent-dsa)"></span>DSA: 25</span>
+      <span class="stat"><span class="dot" style="background:var(--accent-hr)"></span>HR: 19</span>
+      <span class="stat"><span class="dot" style="background:var(--accent-mgr)"></span>Mgr: 20</span>
+    </div>
+
+    <!-- Angular TOC -->
+    <div class="toc-section" data-topic="angular">
+      <div class="toc-section-header active" onclick="toggleTocSection(this)">
+        <span class="icon">🟥</span> Angular
+        <span class="chevron">▸</span>
+      </div>
+      <div class="toc-items open" id="toc-angular">
+        <div class="toc-sub-header">Fundamentals</div>
+        <a class="toc-item" href="#angular-q1">1. What is Angular?</a>
+        <a class="toc-item" href="#angular-q2">2. AngularJS vs Angular</a>
+        <a class="toc-item" href="#angular-q3">3. Building Blocks</a>
+        <a class="toc-item" href="#angular-q4">4. Components</a>
+        <a class="toc-item" href="#angular-q5">5. Modules</a>
+        <a class="toc-item" href="#angular-q6">6. Data Binding</a>
+        <a class="toc-item" href="#angular-q7">7. Directives</a>
+        <a class="toc-item" href="#angular-q8">8. Services</a>
+        <a class="toc-item" href="#angular-q9">9. Dependency Injection</a>
+        <a class="toc-item" href="#angular-q10">10. RxJS</a>
+        <div class="toc-sub-header">Advanced</div>
+        <a class="toc-item" href="#angular-q11">11. NgRx</a>
+        <a class="toc-item" href="#angular-q12">12. Pipes</a>
+        <a class="toc-item" href="#angular-q13">13. Routing</a>
+        <a class="toc-item" href="#angular-q14">14. Forms</a>
+        <a class="toc-item" href="#angular-q15">15. HTTP Client</a>
+        <div class="toc-sub-header">Performance</div>
+        <a class="toc-item" href="#angular-q16">16. Optimization</a>
+        <a class="toc-item" href="#angular-q17">17. Change Detection</a>
+        <div class="toc-sub-header">Tooling</div>
+        <a class="toc-item" href="#angular-q18">18. Angular CLI</a>
+        <a class="toc-item" href="#angular-q19">19. Project Structure</a>
+        <a class="toc-item" href="#angular-q20">20. Deployment</a>
+      </div>
+    </div>
+
+    <!-- JS TOC -->
+    <div class="toc-section" data-topic="js">
+      <div class="toc-section-header" onclick="toggleTocSection(this)">
+        <span class="icon">🟨</span> JavaScript
+        <span class="chevron">▸</span>
+      </div>
+      <div class="toc-items" id="toc-js">
+        <div class="toc-sub-header">Core Concepts</div>
+        <a class="toc-item" href="#js-q1">1. Data Types</a>
+        <a class="toc-item" href="#js-q2">2. let / const / var</a>
+        <a class="toc-item" href="#js-q3">3. Hoisting</a>
+        <a class="toc-item" href="#js-q4">4. == vs ===</a>
+        <a class="toc-item" href="#js-q5">5. Closures</a>
+        <a class="toc-item" href="#js-q6">6. this Keyword</a>
+        <a class="toc-item" href="#js-q7">7. Arrow Functions</a>
+        <a class="toc-item" href="#js-q8">8. Event Loop</a>
+        <a class="toc-item" href="#js-q9">9. Promises</a>
+        <a class="toc-item" href="#js-q10">10. async/await</a>
+        <div class="toc-sub-header">Arrays & Objects</div>
+        <a class="toc-item" href="#js-q11">11. Array Methods</a>
+        <a class="toc-item" href="#js-q12">12. Shallow vs Deep Copy</a>
+        <a class="toc-item" href="#js-q13">13. Object Methods</a>
+        <div class="toc-sub-header">ES6+</div>
+        <a class="toc-item" href="#js-q14">14. Template Literals</a>
+        <a class="toc-item" href="#js-q15">15. Destructuring</a>
+        <a class="toc-item" href="#js-q16">16. Spread & Rest</a>
+        <a class="toc-item" href="#js-q17">17. Default Parameters</a>
+        <a class="toc-item" href="#js-q18">18. Classes</a>
+        <div class="toc-sub-header">Problems</div>
+        <a class="toc-item" href="#js-q19">19. Check Array</a>
+        <a class="toc-item" href="#js-q20">20. Empty Object</a>
+        <a class="toc-item" href="#js-q21">21. Deep Clone</a>
+        <a class="toc-item" href="#js-q22">22. Merge Objects</a>
+        <a class="toc-item" href="#js-q23">23. Flatten Array</a>
+        <a class="toc-item" href="#js-q24">24. Remove Duplicates</a>
+        <a class="toc-item" href="#js-q25">25. Object Equality</a>
+      </div>
+    </div>
+
+    <!-- DSA TOC -->
+    <div class="toc-section" data-topic="dsa">
+      <div class="toc-section-header" onclick="toggleTocSection(this)">
+        <span class="icon">🔢</span> DSA
+        <span class="chevron">▸</span>
+      </div>
+      <div class="toc-items" id="toc-dsa">
+        <div class="toc-sub-header">Arrays & Strings</div>
+        <a class="toc-item" href="#dsa-q1">Q1. Reverse a String</a>
+        <a class="toc-item" href="#dsa-q2">Q2. First Non-Repeating Char</a>
+        <a class="toc-item" href="#dsa-q3">Q3. Two Sum</a>
+        <a class="toc-item" href="#dsa-q4">Q4. Longest Substring</a>
+        <a class="toc-item" href="#dsa-q5">Q5. Merge Sorted Arrays</a>
+        <div class="toc-sub-header">Linked Lists</div>
+        <a class="toc-item" href="#dsa-q6">Q6. Reverse Linked List</a>
+        <a class="toc-item" href="#dsa-q7">Q7. Detect Cycle (Floyd's)</a>
+        <div class="toc-sub-header">Stacks & Queues</div>
+        <a class="toc-item" href="#dsa-q8">Q8. Stack Implementation</a>
+        <a class="toc-item" href="#dsa-q9">Q9. Queue Implementation</a>
+        <a class="toc-item" href="#dsa-q10">Q10. Valid Parentheses</a>
+        <div class="toc-sub-header">Trees & Graphs</div>
+        <a class="toc-item" href="#dsa-q11">Q11. Tree Traversals</a>
+        <a class="toc-item" href="#dsa-q12">Q12. Max Depth</a>
+        <a class="toc-item" href="#dsa-q13">Q13. BFS Level Order</a>
+        <div class="toc-sub-header">Hash Tables</div>
+        <a class="toc-item" href="#dsa-q14">Q14. First Missing Positive</a>
+        <a class="toc-item" href="#dsa-q15">Q15. Find Duplicates</a>
+        <div class="toc-sub-header">Sorting & Searching</div>
+        <a class="toc-item" href="#dsa-q16">Q16. Binary Search</a>
+        <a class="toc-item" href="#dsa-q17">Q17. Merge Sort</a>
+        <a class="toc-item" href="#dsa-q18">Q18. Quick Sort</a>
+        <div class="toc-sub-header">Algorithms</div>
+        <a class="toc-item" href="#dsa-q19">Q19. Fibonacci</a>
+        <a class="toc-item" href="#dsa-q20">Q20. Factorial</a>
+        <a class="toc-item" href="#dsa-q21">Q21. Climbing Stairs</a>
+        <a class="toc-item" href="#dsa-q22">Q22. Coin Change</a>
+        <div class="toc-sub-header">System Design</div>
+        <a class="toc-item" href="#dsa-q23">Q23. Real-time Dashboard</a>
+        <a class="toc-item" href="#dsa-q24">Q24. Search Autocomplete</a>
+        <a class="toc-item" href="#dsa-q25">Q25. Optimize Angular App</a>
+      </div>
+    </div>
+
+    <!-- HR TOC -->
+    <div class="toc-section" data-topic="hr">
+      <div class="toc-section-header" onclick="toggleTocSection(this)">
+        <span class="icon">👤</span> HR & Personal
+        <span class="chevron">▸</span>
+      </div>
+      <div class="toc-items" id="toc-hr">
+        <div class="toc-sub-header">Personal</div>
+        <a class="toc-item" href="#hr-q1">1. Tell me about yourself</a>
+        <a class="toc-item" href="#hr-q2">2. Why Deloitte?</a>
+        <a class="toc-item" href="#hr-q3">3. Why leaving Accenture?</a>
+        <a class="toc-item" href="#hr-q4">4. Strengths</a>
+        <a class="toc-item" href="#hr-q5">5. Weaknesses</a>
+        <a class="toc-item" href="#hr-q6">6. 5-Year Plan</a>
+        <a class="toc-item" href="#hr-q7">7. Salary Expectations</a>
+        <a class="toc-item" href="#hr-q8">8. Motivation</a>
+        <a class="toc-item" href="#hr-q9">9. Handling Stress</a>
+        <a class="toc-item" href="#hr-q10">10. Work Style</a>
+        <div class="toc-sub-header">Experience</div>
+        <a class="toc-item" href="#hr-q11">11. Role at Accenture</a>
+        <a class="toc-item" href="#hr-q12">12. Biggest Achievement</a>
+        <a class="toc-item" href="#hr-q13">13. Challenge Overcome</a>
+        <a class="toc-item" href="#hr-q14">14. Handling Feedback</a>
+        <a class="toc-item" href="#hr-q15">15. Staying Updated</a>
+        <div class="toc-sub-header">Culture Fit</div>
+        <a class="toc-item" href="#hr-q16">16. About Deloitte</a>
+        <a class="toc-item" href="#hr-q17">17. Values Alignment</a>
+        <a class="toc-item" href="#hr-q18">18. Why Hire You?</a>
+        <a class="toc-item" href="#hr-q19">19. Questions for Them</a>
+      </div>
+    </div>
+
+    <!-- Manager TOC -->
+    <div class="toc-section" data-topic="mgr">
+      <div class="toc-section-header" onclick="toggleTocSection(this)">
+        <span class="icon">👔</span> Managerial
+        <span class="chevron">▸</span>
+      </div>
+      <div class="toc-items" id="toc-mgr">
+        <div class="toc-sub-header">Project Mgmt</div>
+        <a class="toc-item" href="#mgr-q1">1. Cross-team Coordination</a>
+        <a class="toc-item" href="#mgr-q2">2. Conflicting Priorities</a>
+        <a class="toc-item" href="#mgr-q3">3. Task Estimation</a>
+        <a class="toc-item" href="#mgr-q4">4. Changing Requirements</a>
+        <a class="toc-item" href="#mgr-q5">5. Quality Assurance</a>
+        <div class="toc-sub-header">Teamwork</div>
+        <a class="toc-item" href="#mgr-q6">6. Handling Disagreements</a>
+        <a class="toc-item" href="#mgr-q7">7. Mentoring Juniors</a>
+        <a class="toc-item" href="#mgr-q8">8. Difficult Team Member</a>
+        <a class="toc-item" href="#mgr-q9">9. Knowledge Sharing</a>
+        <a class="toc-item" href="#mgr-q10">10. Remote Teams</a>
+        <div class="toc-sub-header">Problem Solving</div>
+        <a class="toc-item" href="#mgr-q11">11. Technical Challenge</a>
+        <a class="toc-item" href="#mgr-q12">12. New Problem Approach</a>
+        <a class="toc-item" href="#mgr-q13">13. Technical Decisions</a>
+        <a class="toc-item" href="#mgr-q14">14. Tight Deadlines</a>
+        <a class="toc-item" href="#mgr-q15">15. Handling Failure</a>
+        <div class="toc-sub-header">Process</div>
+        <a class="toc-item" href="#mgr-q16">16. Agile/Scrum</a>
+        <a class="toc-item" href="#mgr-q17">17. Code Reviews</a>
+        <a class="toc-item" href="#mgr-q18">18. Documentation</a>
+        <a class="toc-item" href="#mgr-q19">19. Staying Organized</a>
+        <a class="toc-item" href="#mgr-q20">20. Giving Feedback</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main content gets injected by JS -->
+  <main class="main" id="mainContent">
+    <!-- Populated by JavaScript below -->
+  </main>
+</div>
+
+<!-- Floating Controls -->
+<div class="floating-controls">
+  <button class="fab" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="Back to top">⬆</button>
+</div>
+
+<script>
+// ===== QUESTION DATA =====
+// We embed all QnA data as structured JS objects for rendering
+
+const topics = [
+  // ========== ANGULAR ==========
+  {
+    id: "angular",
+    icon: "🟥",
+    title: "Angular Questions",
+    subtitle: "Fundamentals, Advanced, Performance & Tooling",
+    meta: "20 Questions · Tanay Khobragade · Deloitte MSE II",
+    sections: [
+      {
+        title: "📌 Angular Fundamentals",
+        questions: [
+          {
+            id: "angular-q1",
+            q: "What is Angular?",
+            a: `<p>Angular is a <strong>TypeScript-based, component-driven framework</strong> for building <strong>Single Page Applications (SPAs)</strong>. Developed and maintained by Google, it provides:</p>
+<ul>
+  <li><strong>Full-featured framework</strong> (not just a library) with built-in solutions for routing, forms, HTTP, etc.</li>
+  <li><strong>Component-based architecture</strong> – UI built from reusable components</li>
+  <li><strong>Two-way data binding</strong> – Automatic synchronization between model and view</li>
+  <li><strong>Dependency Injection</strong> – Built-in DI system for better modularity</li>
+  <li><strong>RxJS integration</strong> – Reactive programming support</li>
+  <li><strong>TypeScript support</strong> – Strong typing, better tooling, improved maintainability</li>
+</ul>
+<p><strong>Key Features:</strong></p>
+<ul>
+  <li><strong>Declarative UI</strong> – HTML templates with Angular directives</li>
+  <li><strong>Modular</strong> – Organize code into NgModules</li>
+  <li><strong>Platform-agnostic</strong> – Runs in browser, server (Angular Universal), or mobile (Ionic, NativeScript)</li>
+</ul>
+<div class="diagram-container">
+  <svg viewBox="0 0 600 200" xmlns="http://www.w3.org/2000/svg" width="600">
+    <defs>
+      <linearGradient id="angGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+        <stop offset="0%" style="stop-color:#dd0031;stop-opacity:0.8" />
+        <stop offset="100%" style="stop-color:#c3002f;stop-opacity:0.8" />
+      </linearGradient>
+    </defs>
+    <rect x="230" y="10" width="140" height="40" rx="8" fill="url(#angGrad)" />
+    <text x="300" y="36" text-anchor="middle" fill="white" font-size="14" font-weight="bold" font-family="Inter">Angular App</text>
+    <rect x="20" y="90" width="100" height="36" rx="6" fill="#1a2236" stroke="#dd003180" />
+    <text x="70" y="113" text-anchor="middle" fill="#ff6b8a" font-size="11" font-family="Inter">Components</text>
+    <rect x="140" y="90" width="100" height="36" rx="6" fill="#1a2236" stroke="#dd003180" />
+    <text x="190" y="113" text-anchor="middle" fill="#ff6b8a" font-size="11" font-family="Inter">Services</text>
+    <rect x="260" y="90" width="100" height="36" rx="6" fill="#1a2236" stroke="#dd003180" />
+    <text x="310" y="113" text-anchor="middle" fill="#ff6b8a" font-size="11" font-family="Inter">Modules</text>
+    <rect x="380" y="90" width="100" height="36" rx="6" fill="#1a2236" stroke="#dd003180" />
+    <text x="430" y="113" text-anchor="middle" fill="#ff6b8a" font-size="11" font-family="Inter">Routing</text>
+    <rect x="500" y="90" width="80" height="36" rx="6" fill="#1a2236" stroke="#dd003180" />
+    <text x="540" y="113" text-anchor="middle" fill="#ff6b8a" font-size="11" font-family="Inter">RxJS</text>
+    <line x1="300" y1="50" x2="70" y2="90" stroke="#dd003140" stroke-width="1.5"/>
+    <line x1="300" y1="50" x2="190" y2="90" stroke="#dd003140" stroke-width="1.5"/>
+    <line x1="300" y1="50" x2="310" y2="90" stroke="#dd003140" stroke-width="1.5"/>
+    <line x1="300" y1="50" x2="430" y2="90" stroke="#dd003140" stroke-width="1.5"/>
+    <line x1="300" y1="50" x2="540" y2="90" stroke="#dd003140" stroke-width="1.5"/>
+    <rect x="80" y="155" width="130" height="32" rx="6" fill="#0d132180" stroke="#1e3a5f80" />
+    <text x="145" y="176" text-anchor="middle" fill="#94a3b8" font-size="10" font-family="Inter">TypeScript + DI</text>
+    <rect x="240" y="155" width="130" height="32" rx="6" fill="#0d132180" stroke="#1e3a5f80" />
+    <text x="305" y="176" text-anchor="middle" fill="#94a3b8" font-size="10" font-family="Inter">Templates + Pipes</text>
+    <rect x="400" y="155" width="130" height="32" rx="6" fill="#0d132180" stroke="#1e3a5f80" />
+    <text x="465" y="176" text-anchor="middle" fill="#94a3b8" font-size="10" font-family="Inter">Directives + Forms</text>
+  </svg>
+</div>`
+          },
+          {
+            id: "angular-q2",
+            q: "What are the differences between AngularJS and Angular?",
+            a: `<div class="table-wrapper"><table>
+<tr><th>Feature</th><th>AngularJS (1.x)</th><th>Angular (2+)</th></tr>
+<tr><td><strong>Language</strong></td><td>JavaScript</td><td>TypeScript</td></tr>
+<tr><td><strong>Architecture</strong></td><td>MVC</td><td>Component-based</td></tr>
+<tr><td><strong>Data Binding</strong></td><td>Two-way (ng-model)</td><td>Two-way + one-way</td></tr>
+<tr><td><strong>Performance</strong></td><td>Slower (dirty checking)</td><td>Faster (change detection)</td></tr>
+<tr><td><strong>Mobile</strong></td><td>Limited</td><td>Mobile-first</td></tr>
+<tr><td><strong>CLI</strong></td><td>None</td><td>Angular CLI</td></tr>
+<tr><td><strong>AOT</strong></td><td>No</td><td>Yes</td></tr>
+</table></div>
+<div class="experience-block">💡 <strong>Your Experience:</strong> You've worked with Angular 2+ (not AngularJS).</div>`
+          },
+          {
+            id: "angular-q3",
+            q: "What are the building blocks of an Angular application?",
+            a: `<p>Angular applications are built using <strong>8 main building blocks</strong>:</p>
+<ol>
+  <li><strong>Modules</strong> (<code>@NgModule</code>) – Group related components, directives, pipes, services</li>
+  <li><strong>Components</strong> (<code>@Component</code>) – Control a part of the UI</li>
+  <li><strong>Templates</strong> – HTML with Angular directives that defines the view</li>
+  <li><strong>Directives</strong> – Add behavior to elements or modify DOM</li>
+  <li><strong>Services</strong> (<code>@Injectable</code>) – Business logic, data access</li>
+  <li><strong>Dependency Injection</strong> – System for providing dependencies</li>
+  <li><strong>Routing</strong> – Navigation between components</li>
+  <li><strong>Pipes</strong> – Transform data in templates</li>
+</ol>
+<div class="diagram-container">
+  <svg viewBox="0 0 500 260" xmlns="http://www.w3.org/2000/svg" width="500">
+    <rect x="175" y="5" width="150" height="40" rx="10" fill="#dd003120" stroke="#dd0031" stroke-width="1.5"/>
+    <text x="250" y="30" text-anchor="middle" fill="#ff6b8a" font-size="13" font-weight="bold" font-family="Inter">NgModule</text>
+    <rect x="30" y="80" width="110" height="35" rx="7" fill="#1a2236" stroke="#1e3a5f"/>
+    <text x="85" y="103" text-anchor="middle" fill="#e2e8f0" font-size="11" font-family="Inter">Components</text>
+    <rect x="160" y="80" width="90" height="35" rx="7" fill="#1a2236" stroke="#1e3a5f"/>
+    <text x="205" y="103" text-anchor="middle" fill="#e2e8f0" font-size="11" font-family="Inter">Services</text>
+    <rect x="270" y="80" width="90" height="35" rx="7" fill="#1a2236" stroke="#1e3a5f"/>
+    <text x="315" y="103" text-anchor="middle" fill="#e2e8f0" font-size="11" font-family="Inter">Directives</text>
+    <rect x="380" y="80" width="90" height="35" rx="7" fill="#1a2236" stroke="#1e3a5f"/>
+    <text x="425" y="103" text-anchor="middle" fill="#e2e8f0" font-size="11" font-family="Inter">Pipes</text>
+    <line x1="250" y1="45" x2="85" y2="80" stroke="#1e3a5f" stroke-width="1"/>
+    <line x1="250" y1="45" x2="205" y2="80" stroke="#1e3a5f" stroke-width="1"/>
+    <line x1="250" y1="45" x2="315" y2="80" stroke="#1e3a5f" stroke-width="1"/>
+    <line x1="250" y1="45" x2="425" y2="80" stroke="#1e3a5f" stroke-width="1"/>
+    <rect x="10" y="145" width="130" height="30" rx="6" fill="#0d1321" stroke="#1e3a5f80"/>
+    <text x="75" y="165" text-anchor="middle" fill="#94a3b8" font-size="10" font-family="Inter">Template + Class</text>
+    <rect x="160" y="145" width="90" height="30" rx="6" fill="#0d1321" stroke="#1e3a5f80"/>
+    <text x="205" y="165" text-anchor="middle" fill="#94a3b8" font-size="10" font-family="Inter">@Injectable</text>
+    <rect x="270" y="145" width="100" height="30" rx="6" fill="#0d1321" stroke="#1e3a5f80"/>
+    <text x="320" y="165" text-anchor="middle" fill="#94a3b8" font-size="10" font-family="Inter">Structural/Attr</text>
+    <rect x="390" y="145" width="80" height="30" rx="6" fill="#0d1321" stroke="#1e3a5f80"/>
+    <text x="430" y="165" text-anchor="middle" fill="#94a3b8" font-size="10" font-family="Inter">Transform</text>
+    <line x1="85" y1="115" x2="75" y2="145" stroke="#1e3a5f60" stroke-width="1"/>
+    <line x1="205" y1="115" x2="205" y2="145" stroke="#1e3a5f60" stroke-width="1"/>
+    <line x1="315" y1="115" x2="320" y2="145" stroke="#1e3a5f60" stroke-width="1"/>
+    <line x1="425" y1="115" x2="430" y2="145" stroke="#1e3a5f60" stroke-width="1"/>
+    <rect x="100" y="210" width="130" height="30" rx="6" fill="#6366f110" stroke="#6366f140"/>
+    <text x="165" y="230" text-anchor="middle" fill="#818cf8" font-size="10" font-family="Inter">Routing</text>
+    <rect x="260" y="210" width="160" height="30" rx="6" fill="#6366f110" stroke="#6366f140"/>
+    <text x="340" y="230" text-anchor="middle" fill="#818cf8" font-size="10" font-family="Inter">Dependency Injection</text>
+  </svg>
+</div>`
+          },
+          {
+            id: "angular-q4",
+            q: "What is a Component in Angular?",
+            a: `<p>A <strong>Component</strong> is a class with a <code>@Component</code> decorator that defines a <strong>Template</strong> (HTML), <strong>Class</strong> (TypeScript logic), and <strong>Metadata</strong> (configuration).</p>
+<div class="code-block"><div class="code-header"><span class="code-lang"><span class="code-lang-dot ts"></span>TypeScript</span><button class="code-copy" onclick="copyCode(this)">Copy</button></div><pre><code><span class="kw">@Component</span>({
+  <span class="prop">selector</span>: <span class="str">'app-example'</span>,
+  <span class="prop">templateUrl</span>: <span class="str">'./example.component.html'</span>,
+  <span class="prop">styleUrls</span>: [<span class="str">'./example.component.css'</span>]
+})
+<span class="kw">export class</span> <span class="type">ExampleComponent</span> {
+  <span class="prop">title</span> = <span class="str">'My Component'</span>;
+}</code></pre></div>
+<p><strong>Component Lifecycle Hooks:</strong></p>
+<div class="diagram-container">
+  <svg viewBox="0 0 520 180" xmlns="http://www.w3.org/2000/svg" width="520">
+    <rect x="5" y="70" width="100" height="35" rx="6" fill="#c792ea15" stroke="#c792ea60"/><text x="55" y="92" text-anchor="middle" fill="#c792ea" font-size="9" font-family="JetBrains Mono">ngOnChanges</text>
+    <rect x="120" y="70" width="80" height="35" rx="6" fill="#82aaff15" stroke="#82aaff60"/><text x="160" y="92" text-anchor="middle" fill="#82aaff" font-size="9" font-family="JetBrains Mono">ngOnInit</text>
+    <rect x="215" y="70" width="85" height="35" rx="6" fill="#c3e88d15" stroke="#c3e88d60"/><text x="258" y="92" text-anchor="middle" fill="#c3e88d" font-size="9" font-family="JetBrains Mono">ngDoCheck</text>
+    <rect x="315" y="70" width="110" height="35" rx="6" fill="#ffcb6b15" stroke="#ffcb6b60"/><text x="370" y="92" text-anchor="middle" fill="#ffcb6b" font-size="9" font-family="JetBrains Mono">ngAfterViewInit</text>
+    <rect x="440" y="70" width="75" height="35" rx="6" fill="#f0717815" stroke="#f0717860"/><text x="478" y="92" text-anchor="middle" fill="#f07178" font-size="9" font-family="JetBrains Mono">ngOnDestroy</text>
+    <line x1="105" y1="88" x2="120" y2="88" stroke="#546e7a" stroke-width="1.5" marker-end="url(#arrow)"/>
+    <line x1="200" y1="88" x2="215" y2="88" stroke="#546e7a" stroke-width="1.5"/>
+    <line x1="300" y1="88" x2="315" y2="88" stroke="#546e7a" stroke-width="1.5"/>
+    <line x1="425" y1="88" x2="440" y2="88" stroke="#546e7a" stroke-width="1.5"/>
+    <text x="260" y="30" text-anchor="middle" fill="#64748b" font-size="11" font-family="Inter" font-weight="600">Component Lifecycle →</text>
+    <text x="55" y="130" text-anchor="middle" fill="#546e7a" font-size="8" font-family="Inter">Input changes</text>
+    <text x="160" y="130" text-anchor="middle" fill="#546e7a" font-size="8" font-family="Inter">Init once</text>
+    <text x="258" y="130" text-anchor="middle" fill="#546e7a" font-size="8" font-family="Inter">Custom CD</text>
+    <text x="370" y="130" text-anchor="middle" fill="#546e7a" font-size="8" font-family="Inter">View ready</text>
+    <text x="478" y="130" text-anchor="middle" fill="#546e7a" font-size="8" font-family="Inter">Cleanup</text>
+  </svg>
+</div>`
+          },
+          {
+            id: "angular-q5",
+            q: "What is a Module in Angular?",
+            a: `<p>A <strong>Module</strong> organizes and bundles related components, directives, pipes, and services. Every app has a <strong>root module</strong> (<code>AppModule</code>).</p>
+<div class="code-block"><div class="code-header"><span class="code-lang"><span class="code-lang-dot ts"></span>TypeScript</span><button class="code-copy" onclick="copyCode(this)">Copy</button></div><pre><code><span class="kw">@NgModule</span>({
+  <span class="prop">declarations</span>: [<span class="type">AppComponent</span>, <span class="type">HeaderComponent</span>],
+  <span class="prop">imports</span>: [<span class="type">BrowserModule</span>, <span class="type">HttpClientModule</span>],
+  <span class="prop">providers</span>: [<span class="type">DataService</span>],
+  <span class="prop">exports</span>: [<span class="type">HeaderComponent</span>],
+  <span class="prop">bootstrap</span>: [<span class="type">AppComponent</span>]
+})
+<span class="kw">export class</span> <span class="type">AppModule</span> { }</code></pre></div>
+<p><strong>Types of Modules:</strong></p>
+<ol>
+  <li><strong>Root Module</strong> – AppModule, bootstraps the application</li>
+  <li><strong>Feature Modules</strong> – Group related functionality (AuthModule, DashboardModule)</li>
+  <li><strong>Shared Modules</strong> – Reusable components/directives/pipes</li>
+  <li><strong>Core Module</strong> – Singleton services, loaded once</li>
+  <li><strong>Routing Module</strong> – Routing configuration</li>
+  <li><strong>Lazy-loaded Modules</strong> – Loaded on demand</li>
+</ol>`
+          },
+          {
+            id: "angular-q6",
+            q: "What is Data Binding in Angular?",
+            a: `<p>Data Binding is the <strong>communication between the component (TypeScript) and the template (HTML)</strong>. Angular supports <strong>4 types</strong>:</p>
+<div class="diagram-container">
+  <svg viewBox="0 0 500 200" xmlns="http://www.w3.org/2000/svg" width="500">
+    <rect x="30" y="60" width="140" height="80" rx="10" fill="#82aaff10" stroke="#82aaff60"/>
+    <text x="100" y="95" text-anchor="middle" fill="#82aaff" font-size="14" font-weight="bold" font-family="Inter">Component</text>
+    <text x="100" y="115" text-anchor="middle" fill="#546e7a" font-size="10" font-family="Inter">(TypeScript)</text>
+    <rect x="330" y="60" width="140" height="80" rx="10" fill="#c3e88d10" stroke="#c3e88d60"/>
+    <text x="400" y="95" text-anchor="middle" fill="#c3e88d" font-size="14" font-weight="bold" font-family="Inter">Template</text>
+    <text x="400" y="115" text-anchor="middle" fill="#546e7a" font-size="10" font-family="Inter">(HTML)</text>
+    <line x1="170" y1="78" x2="330" y2="78" stroke="#c792ea" stroke-width="1.5" marker-end="url(#arrowP)"/>
+    <text x="250" y="72" text-anchor="middle" fill="#c792ea" font-size="9" font-family="Inter">{{ interpolation }}</text>
+    <line x1="170" y1="93" x2="330" y2="93" stroke="#ffcb6b" stroke-width="1.5" marker-end="url(#arrowY)"/>
+    <text x="250" y="89" text-anchor="middle" fill="#ffcb6b" font-size="9" font-family="Inter">[property]</text>
+    <line x1="330" y1="108" x2="170" y2="108" stroke="#f07178" stroke-width="1.5" marker-end="url(#arrowR)"/>
+    <text x="250" y="106" text-anchor="middle" fill="#f07178" font-size="9" font-family="Inter">(event)</text>
+    <line x1="170" y1="123" x2="330" y2="123" stroke="#89ddff" stroke-width="1.5"/>
+    <line x1="330" y1="123" x2="170" y2="123" stroke="#89ddff" stroke-width="1.5"/>
+    <text x="250" y="140" text-anchor="middle" fill="#89ddff" font-size="9" font-family="Inter">[(ngModel)] two-way</text>
+  </svg>
+</div>
+<div class="code-block"><div class="code-header"><span class="code-lang"><span class="code-lang-dot html"></span>HTML</span><button class="code-copy" onclick="copyCode(this)">Copy</button></div><pre><code><span class="cmt">&lt;!-- Interpolation --&gt;</span>
+<span class="tag">&lt;p&gt;</span>Hello, <span class="op">{{</span> <span class="prop">name</span> <span class="op">}}</span>!<span class="tag">&lt;/p&gt;</span>
+<span class="cmt">&lt;!-- Property Binding --&gt;</span>
+<span class="tag">&lt;input</span> <span class="attr">[value]</span>=<span class="str">"username"</span><span class="tag">&gt;</span>
+<span class="cmt">&lt;!-- Event Binding --&gt;</span>
+<span class="tag">&lt;button</span> <span class="attr">(click)</span>=<span class="str">"onClick()"</span><span class="tag">&gt;</span>Click<span class="tag">&lt;/button&gt;</span>
+<span class="cmt">&lt;!-- Two-way Binding --&gt;</span>
+<span class="tag">&lt;input</span> <span class="attr">[(ngModel)]</span>=<span class="str">"username"</span><span class="tag">&gt;</span></code></pre></div>
+<div class="note-block">📝 Two-way binding requires <code>FormsModule</code> to be imported.</div>`
+          },
+          {
+            id: "angular-q7",
+            q: "What are Directives in Angular?",
+            a: `<p>Directives are <strong>classes with special behavior</strong> that modify the DOM. There are <strong>3 types</strong>:</p>
+<ol>
+  <li><strong>Component Directives</strong> – Directives with a template</li>
+  <li><strong>Structural Directives</strong> – Change DOM layout (<code>*ngIf</code>, <code>*ngFor</code>, <code>*ngSwitch</code>)</li>
+  <li><strong>Attribute Directives</strong> – Change appearance (<code>ngClass</code>, <code>ngStyle</code>, <code>ngModel</code>)</li>
+</ol>
+<div class="code-block"><div class="code-header"><span class="code-lang"><span class="code-lang-dot html"></span>HTML</span><button class="code-copy" onclick="copyCode(this)">Copy</button></div><pre><code><span class="cmt">&lt;!-- *ngIf --&gt;</span>
+<span class="tag">&lt;div</span> <span class="attr">*ngIf</span>=<span class="str">"isVisible"</span><span class="tag">&gt;</span>Show me!<span class="tag">&lt;/div&gt;</span>
+
+<span class="cmt">&lt;!-- *ngFor --&gt;</span>
+<span class="tag">&lt;div</span> <span class="attr">*ngFor</span>=<span class="str">"let item of items; index as i"</span><span class="tag">&gt;</span>
+  <span class="op">{{</span> i + <span class="num">1</span> <span class="op">}}</span>. <span class="op">{{</span> item.name <span class="op">}}</span>
+<span class="tag">&lt;/div&gt;</span></code></pre></div>
+<p><strong>Custom Directive:</strong></p>
+<div class="code-block"><div class="code-header"><span class="code-lang"><span class="code-lang-dot ts"></span>TypeScript</span><button class="code-copy" onclick="copyCode(this)">Copy</button></div><pre><code><span class="kw">@Directive</span>({
+  <span class="prop">selector</span>: <span class="str">'[appHighlight]'</span>
+})
+<span class="kw">export class</span> <span class="type">HighlightDirective</span> {
+  <span class="fn">constructor</span>(<span class="kw">private</span> el: <span class="type">ElementRef</span>) {
+    el.<span class="prop">nativeElement</span>.<span class="prop">style</span>.<span class="prop">backgroundColor</span> = <span class="str">'yellow'</span>;
+  }
+}</code></pre></div>`
+          },
+          {
+            id: "angular-q8",
+            q: "What are Services in Angular?",
+            a: `<p>Services are <strong>classes with focused responsibility</strong> (data access, business logic) that can be <strong>injected</strong> via <strong>Dependency Injection</strong>.</p>
+<ul>
+  <li><strong>Separation of concerns</strong> – Keep components lean</li>
+  <li><strong>Reusability</strong> – Share logic across components</li>
+  <li><strong>Testability</strong> – Easier to mock and test</li>
+  <li><strong>Singleton pattern</strong> – Same instance shared</li>
+</ul>
+<div class="code-block"><div class="code-header"><span class="code-lang"><span class="code-lang-dot ts"></span>TypeScript</span><button class="code-copy" onclick="copyCode(this)">Copy</button></div><pre><code><span class="kw">@Injectable</span>({
+  <span class="prop">providedIn</span>: <span class="str">'root'</span> <span class="cmt">// Singleton, available app-wide</span>
+})
+<span class="kw">export class</span> <span class="type">DataService</span> {
+  <span class="fn">constructor</span>(<span class="kw">private</span> http: <span class="type">HttpClient</span>) { }
+
+  <span class="fn">getUsers</span>() {
+    <span class="kw">return</span> <span class="kw">this</span>.http.<span class="fn">get</span>(<span class="str">'/api/users'</span>);
+  }
+}</code></pre></div>
+<p><strong>Provider Scopes:</strong> <code>providedIn: 'root'</code> → Singleton everywhere; <code>providers: [MyService]</code> in component → component-specific instance.</p>`
+          },
+          {
+            id: "angular-q9",
+            q: "What is Dependency Injection (DI) in Angular?",
+            a: `<p>DI is a <strong>design pattern</strong> where dependencies are <strong>injected</strong> into a class rather than the class creating them.</p>
+<p><strong>How it works:</strong></p>
+<ol>
+  <li><strong>Register</strong> the dependency with an injector</li>
+  <li><strong>Request</strong> the dependency in the constructor</li>
+  <li>Angular <strong>creates/injects</strong> the dependency</li>
+</ol>
+<p><strong>Injector Hierarchy:</strong> Root Injector → Module Injectors → Component Injectors</p>
+<div class="code-block"><div class="code-header"><span class="code-lang"><span class="code-lang-dot ts"></span>TypeScript</span><button class="code-copy" onclick="copyCode(this)">Copy</button></div><pre><code><span class="kw">export const</span> <span class="prop">API_URL</span> = <span class="kw">new</span> <span class="type">InjectionToken</span>&lt;<span class="type">string</span>&gt;(<span class="str">'apiUrl'</span>);
+
+<span class="kw">@NgModule</span>({
+  <span class="prop">providers</span>: [
+    { <span class="prop">provide</span>: <span class="prop">API_URL</span>, <span class="prop">useValue</span>: <span class="str">'https://api.example.com'</span> }
+  ]
+})
+
+<span class="kw">@Component</span>({...})
+<span class="kw">export class</span> <span class="type">MyComponent</span> {
+  <span class="fn">constructor</span>(<span class="kw">@Inject</span>(<span class="prop">API_URL</span>) <span class="kw">private</span> apiUrl: <span class="type">string</span>) { }
+}</code></pre></div>`
+          },
+          {
+            id: "angular-q10",
+            q: "What is RxJS and how is it used in Angular?",
+            a: `<p><strong>RxJS (Reactive Extensions for JavaScript)</strong> is a library for <strong>reactive programming</strong> using <strong>Observables</strong>.</p>
+<p><strong>Key Concepts:</strong> Observable, Observer, Subscription, Operators, Subject</p>
+<div class="code-block"><div class="code-header"><span class="code-lang"><span class="code-lang-dot ts"></span>TypeScript</span><button class="code-copy" onclick="copyCode(this)">Copy</button></div><pre><code><span class="cmt">// Transform data</span>
+observable.<span class="fn">pipe</span>(<span class="fn">map</span>(x <span class="op">=&gt;</span> x * <span class="num">2</span>));
+
+<span class="cmt">// Filter data</span>
+observable.<span class="fn">pipe</span>(<span class="fn">filter</span>(x <span class="op">=&gt;</span> x &gt; <span class="num">10</span>));
+
+<span class="cmt">// Flatten nested observables</span>
+observable.<span class="fn">pipe</span>(<span class="fn">switchMap</span>(id <span class="op">=&gt;</span> <span class="fn">fetchData</span>(id))); <span class="cmt">// Cancels previous</span>
+observable.<span class="fn">pipe</span>(<span class="fn">mergeMap</span>(id <span class="op">=&gt;</span> <span class="fn">fetchData</span>(id)));  <span class="cmt">// Concurrent</span>
+observable.<span class="fn">pipe</span>(<span class="fn">concatMap</span>(id <span class="op">=&gt;</span> <span class="fn">fetchData</span>(id))); <span class="cmt">// Sequential</span>
+
+<span class="cmt">// Debounce for search</span>
+observable.<span class="fn">pipe</span>(<span class="fn">debounceTime</span>(<span class="num">300</span>), <span class="fn">distinctUntilChanged</span>());</code></pre></div>
+<p><strong>Subjects:</strong></p>
+<ul>
+  <li><strong>Subject</strong> – Multicast to multiple observers</li>
+  <li><strong>BehaviorSubject</strong> – Requires initial value, emits current value to new subscribers</li>
+  <li><strong>ReplaySubject</strong> – Replays last N values</li>
+  <li><strong>AsyncSubject</strong> – Only emits last value when complete</li>
+</ul>`
+          }
+        ]
+      },
+      {
+        title: "🏗️ Advanced Angular Concepts",
+        questions: [
+          {
+            id: "angular-q11",
+            q: "What is NgRx?",
+            a: `<p><strong>NgRx</strong> is a <strong>state management library</strong> inspired by <strong>Redux</strong>.</p>
+<div class="diagram-container">
+  <svg viewBox="0 0 520 180" xmlns="http://www.w3.org/2000/svg" width="520">
+    <rect x="10" y="60" width="80" height="40" rx="8" fill="#82aaff15" stroke="#82aaff60"/>
+    <text x="50" y="85" text-anchor="middle" fill="#82aaff" font-size="12" font-weight="bold" font-family="Inter">UI</text>
+    <rect x="130" y="60" width="90" height="40" rx="8" fill="#c792ea15" stroke="#c792ea60"/>
+    <text x="175" y="85" text-anchor="middle" fill="#c792ea" font-size="11" font-weight="bold" font-family="Inter">Action</text>
+    <rect x="260" y="60" width="90" height="40" rx="8" fill="#c3e88d15" stroke="#c3e88d60"/>
+    <text x="305" y="85" text-anchor="middle" fill="#c3e88d" font-size="11" font-weight="bold" font-family="Inter">Reducer</text>
+    <rect x="390" y="60" width="90" height="40" rx="8" fill="#ffcb6b15" stroke="#ffcb6b60"/>
+    <text x="435" y="85" text-anchor="middle" fill="#ffcb6b" font-size="11" font-weight="bold" font-family="Inter">Store</text>
+    <rect x="260" y="135" width="90" height="35" rx="8" fill="#f0717815" stroke="#f0717860"/>
+    <text x="305" y="158" text-anchor="middle" fill="#f07178" font-size="10" font-weight="bold" font-family="Inter">Effects</text>
+    <line x1="90" y1="80" x2="130" y2="80" stroke="#546e7a" stroke-width="1.5"/>
+    <text x="110" y="74" text-anchor="middle" fill="#546e7a" font-size="8" font-family="Inter">dispatch</text>
+    <line x1="220" y1="80" x2="260" y2="80" stroke="#546e7a" stroke-width="1.5"/>
+    <line x1="350" y1="80" x2="390" y2="80" stroke="#546e7a" stroke-width="1.5"/>
+    <text x="370" y="74" text-anchor="middle" fill="#546e7a" font-size="8" font-family="Inter">new state</text>
+    <path d="M480 80 Q510 80 510 40 Q510 10 250 10 Q20 10 20 40 Q20 60 10 60" stroke="#546e7a" stroke-width="1.5" fill="none"/>
+    <text x="260" y="25" text-anchor="middle" fill="#89ddff" font-size="8" font-family="Inter">Selector → UI update</text>
+    <line x1="220" y1="100" x2="260" y2="135" stroke="#546e7a80" stroke-width="1" stroke-dasharray="4"/>
+    <text x="230" y="125" fill="#546e7a" font-size="8" font-family="Inter">side effects</text>
+  </svg>
+</div>
+<div class="code-block"><div class="code-header"><span class="code-lang"><span class="code-lang-dot ts"></span>TypeScript</span><button class="code-copy" onclick="copyCode(this)">Copy</button></div><pre><code><span class="cmt">// Action</span>
+<span class="kw">export const</span> <span class="prop">loadUsers</span> = <span class="fn">createAction</span>(<span class="str">'[User] Load Users'</span>);
+
+<span class="cmt">// Reducer</span>
+<span class="kw">export const</span> <span class="prop">userReducer</span> = <span class="fn">createReducer</span>(
+  initialState,
+  <span class="fn">on</span>(loadUsersSuccess, (state, { users }) <span class="op">=&gt;</span> ({ ...state, users }))
+);
+
+<span class="cmt">// Selector</span>
+<span class="kw">export const</span> <span class="prop">selectUsers</span> = <span class="fn">createSelector</span>(
+  state <span class="op">=&gt;</span> state.users,
+  users <span class="op">=&gt;</span> users
+);</code></pre></div>`
+          },
+          {
+            id: "angular-q12",
+            q: "What are Pipes in Angular?",
+            a: `<p>Pipes <strong>transform data</strong> in Angular templates.</p>
+<div class="code-block"><div class="code-header"><span class="code-lang"><span class="code-lang-dot html"></span>HTML</span><button class="code-copy" onclick="copyCode(this)">Copy</button></div><pre><code><span class="op">{{</span> <span class="str">'hello'</span> <span class="op">|</span> <span class="fn">uppercase</span> <span class="op">}}</span>       <span class="cmt">&lt;!-- HELLO --&gt;</span>
+<span class="op">{{</span> <span class="num">3.14159</span> <span class="op">|</span> <span class="fn">number</span>:<span class="str">'1.2-3'</span> <span class="op">}}</span>  <span class="cmt">&lt;!-- 3.142 --&gt;</span>
+<span class="op">{{</span> today <span class="op">|</span> <span class="fn">date</span>:<span class="str">'fullDate'</span> <span class="op">}}</span>   <span class="cmt">&lt;!-- Thursday, June 15, 2023 --&gt;</span>
+<span class="op">{{</span> <span class="num">1000</span> <span class="op">|</span> <span class="fn">currency</span>:<span class="str">'USD'</span> <span class="op">}}</span>   <span class="cmt">&lt;!-- $1,000.00 --&gt;</span></code></pre></div>
+<p><strong>Custom Pipe:</strong></p>
+<div class="code-block"><div class="code-header"><span class="code-lang"><span class="code-lang-dot ts"></span>TypeScript</span><button class="code-copy" onclick="copyCode(this)">Copy</button></div><pre><code><span class="kw">@Pipe</span>({ <span class="prop">name</span>: <span class="str">'reverse'</span> })
+<span class="kw">export class</span> <span class="type">ReversePipe</span> <span class="kw">implements</span> <span class="type">PipeTransform</span> {
+  <span class="fn">transform</span>(value: <span class="type">string</span>): <span class="type">string</span> {
+    <span class="kw">return</span> value.<span class="fn">split</span>(<span class="str">''</span>).<span class="fn">reverse</span>().<span class="fn">join</span>(<span class="str">''</span>);
+  }
+}
+<span class="cmt">// Usage: {{ 'hello' | reverse }}  → olleh</span></code></pre></div>
+<p><strong>Pure vs Impure:</strong> Pure (default) – only called when input changes. Impure – called every CD cycle.</p>`
+          },
+          {
+            id: "angular-q13",
+            q: "What is Angular Routing?",
+            a: `<p>Angular Routing enables <strong>navigation between components</strong> in a SPA.</p>
+<div class="code-block"><div class="code-header"><span class="code-lang"><span class="code-lang-dot ts"></span>TypeScript</span><button class="code-copy" onclick="copyCode(this)">Copy</button></div><pre><code><span class="kw">const</span> routes: <span class="type">Routes</span> = [
+  { <span class="prop">path</span>: <span class="str">''</span>, <span class="prop">component</span>: <span class="type">HomeComponent</span> },
+  { <span class="prop">path</span>: <span class="str">'users'</span>, <span class="prop">component</span>: <span class="type">UserListComponent</span> },
+  { <span class="prop">path</span>: <span class="str">'users/:id'</span>, <span class="prop">component</span>: <span class="type">UserDetailComponent</span> },
+  { <span class="prop">path</span>: <span class="str">'**'</span>, <span class="prop">redirectTo</span>: <span class="str">'/404'</span> }
+];
+
+<span class="cmt">// Lazy Loading</span>
+{
+  <span class="prop">path</span>: <span class="str">'admin'</span>,
+  <span class="prop">loadChildren</span>: () <span class="op">=&gt;</span> <span class="kw">import</span>(<span class="str">'./admin/admin.module'</span>).<span class="fn">then</span>(m <span class="op">=&gt;</span> m.<span class="type">AdminModule</span>)
+}</code></pre></div>
+<p><strong>Route Guards:</strong> CanActivate, CanActivateChild, CanDeactivate, CanLoad, Resolve</p>`
+          },
+          {
+            id: "angular-q14",
+            q: "What are Angular Forms?",
+            a: `<p>Angular provides <strong>two approaches</strong>:</p>
+<div class="table-wrapper"><table>
+<tr><th>Feature</th><th>Template-Driven</th><th>Reactive</th></tr>
+<tr><td>Logic location</td><td>Template</td><td>Component class</td></tr>
+<tr><td>Setup</td><td>Easier</td><td>More control</td></tr>
+<tr><td>Module</td><td>FormsModule</td><td>ReactiveFormsModule</td></tr>
+<tr><td>Data flow</td><td>Two-way binding</td><td>Immutable</td></tr>
+<tr><td>Complexity</td><td>Simple forms</td><td>Complex forms</td></tr>
+</table></div>
+<div class="code-block"><div class="code-header"><span class="code-lang"><span class="code-lang-dot ts"></span>TypeScript — Reactive Form</span><button class="code-copy" onclick="copyCode(this)">Copy</button></div><pre><code><span class="kw">this</span>.userForm = <span class="kw">this</span>.fb.<span class="fn">group</span>({
+  <span class="prop">username</span>: [<span class="str">''</span>, [<span class="type">Validators</span>.<span class="prop">required</span>, <span class="type">Validators</span>.<span class="fn">minLength</span>(<span class="num">3</span>)]],
+  <span class="prop">email</span>: [<span class="str">''</span>, [<span class="type">Validators</span>.<span class="prop">required</span>, <span class="type">Validators</span>.<span class="prop">email</span>]],
+  <span class="prop">password</span>: [<span class="str">''</span>, [<span class="type">Validators</span>.<span class="prop">required</span>, <span class="type">Validators</span>.<span class="fn">minLength</span>(<span class="num">8</span>)]]
+});</code></pre></div>`
+          },
+          {
+            id: "angular-q15",
+            q: "What is HTTP Client in Angular?",
+            a: `<p>Angular's <code>HttpClient</code> is a service for making <strong>HTTP requests</strong>. It's part of <code>@angular/common/http</code>.</p>
+<div class="code-block"><div class="code-header"><span class="code-lang"><span class="code-lang-dot ts"></span>TypeScript</span><button class="code-copy" onclick="copyCode(this)">Copy</button></div><pre><code><span class="kw">@Injectable</span>({ <span class="prop">providedIn</span>: <span class="str">'root'</span> })
+<span class="kw">export class</span> <span class="type">DataService</span> {
+  <span class="fn">constructor</span>(<span class="kw">private</span> http: <span class="type">HttpClient</span>) { }
+
+  <span class="fn">getUsers</span>()    { <span class="kw">return</span> <span class="kw">this</span>.http.<span class="fn">get</span>&lt;<span class="type">User</span>[]&gt;(<span class="str">'/api/users'</span>); }
+  <span class="fn">createUser</span>(u) { <span class="kw">return</span> <span class="kw">this</span>.http.<span class="fn">post</span>&lt;<span class="type">User</span>&gt;(<span class="str">'/api/users'</span>, u); }
+  <span class="fn">updateUser</span>(id, u) { <span class="kw">return</span> <span class="kw">this</span>.http.<span class="fn">put</span>&lt;<span class="type">User</span>&gt;(<span class="str">\`/api/users/\${id}\`</span>, u); }
+  <span class="fn">deleteUser</span>(id) { <span class="kw">return</span> <span class="kw">this</span>.http.<span class="fn">delete</span>(<span class="str">\`/api/users/\${id}\`</span>); }
+}</code></pre></div>
+<p><strong>Interceptors:</strong> Used to modify requests/responses globally (e.g., add auth headers).</p>
+<div class="code-block"><div class="code-header"><span class="code-lang"><span class="code-lang-dot ts"></span>TypeScript — Interceptor</span><button class="code-copy" onclick="copyCode(this)">Copy</button></div><pre><code><span class="kw">@Injectable</span>()
+<span class="kw">export class</span> <span class="type">AuthInterceptor</span> <span class="kw">implements</span> <span class="type">HttpInterceptor</span> {
+  <span class="fn">intercept</span>(req: <span class="type">HttpRequest</span>&lt;<span class="type">any</span>&gt;, next: <span class="type">HttpHandler</span>) {
+    <span class="kw">const</span> authReq = req.<span class="fn">clone</span>({
+      <span class="prop">headers</span>: req.headers.<span class="fn">set</span>(<span class="str">'Authorization'</span>, <span class="str">\`Bearer \${token}\`</span>)
+    });
+    <span class="kw">return</span> next.<span class="fn">handle</span>(authReq);
+  }
+}</code></pre></div>`
+          }
+        ]
+      },
+      {
+        title: "🔥 Performance & Optimization",
+        questions: [
+          {
+            id: "angular-q16",
+            q: "How do you optimize Angular application performance?",
+            a: `<ol>
+  <li><strong>AOT Compilation</strong> – Compiles templates at build time → smaller bundles, faster rendering</li>
+  <li><strong>Lazy Loading</strong> – Load feature modules only when needed</li>
+  <li><strong>OnPush Change Detection</strong> – Only check when inputs change by reference</li>
+  <li><strong>TrackBy in *ngFor</strong> – Prevents unnecessary DOM updates</li>
+  <li><strong>Pure Pipes</strong> – Only recalculate when inputs change</li>
+  <li><strong>Unsubscribe from Observables</strong> – Prevent memory leaks</li>
+  <li><strong>Tree Shaking</strong> – Remove unused code during build</li>
+  <li><strong>Bundle Budgets</strong> – Set limits in angular.json</li>
+  <li><strong>Web Workers</strong> – Offload CPU-intensive tasks</li>
+  <li><strong>SSR (Angular Universal)</strong> – Improves SEO and first paint</li>
+</ol>
+<div class="code-block"><div class="code-header"><span class="code-lang"><span class="code-lang-dot ts"></span>TypeScript — Unsubscribe Pattern</span><button class="code-copy" onclick="copyCode(this)">Copy</button></div><pre><code><span class="kw">private</span> destroy$ = <span class="kw">new</span> <span class="type">Subject</span>&lt;<span class="type">void</span>&gt;();
+
+<span class="fn">ngOnInit</span>() {
+  <span class="kw">this</span>.service.data$.<span class="fn">pipe</span>(
+    <span class="fn">takeUntil</span>(<span class="kw">this</span>.destroy$)
+  ).<span class="fn">subscribe</span>(data <span class="op">=&gt;</span> <span class="kw">this</span>.data = data);
+}
+
+<span class="fn">ngOnDestroy</span>() {
+  <span class="kw">this</span>.destroy$.<span class="fn">next</span>();
+  <span class="kw">this</span>.destroy$.<span class="fn">complete</span>();
+}</code></pre></div>`
+          },
+          {
+            id: "angular-q17",
+            q: "What is Change Detection in Angular?",
+            a: `<p>Change Detection synchronizes the <strong>model (component state)</strong> with the <strong>view (DOM)</strong>.</p>
+<div class="table-wrapper"><table>
+<tr><th>Strategy</th><th>Behavior</th><th>Use Case</th></tr>
+<tr><td><strong>Default</strong></td><td>Checks all components on every trigger</td><td>Most components</td></tr>
+<tr><td><strong>OnPush</strong></td><td>Only checks when inputs change by reference, events occur, or async pipe emits</td><td>Performance-critical</td></tr>
+</table></div>
+<div class="code-block"><div class="code-header"><span class="code-lang"><span class="code-lang-dot ts"></span>TypeScript</span><button class="code-copy" onclick="copyCode(this)">Copy</button></div><pre><code><span class="cmt">// Manual change detection</span>
+<span class="kw">constructor</span>(<span class="kw">private</span> cdr: <span class="type">ChangeDetectorRef</span>) { }
+
+<span class="kw">this</span>.cdr.<span class="fn">detectChanges</span>();   <span class="cmt">// Detect now</span>
+<span class="kw">this</span>.cdr.<span class="fn">markForCheck</span>();    <span class="cmt">// Mark for next cycle</span>
+<span class="kw">this</span>.cdr.<span class="fn">detach</span>();          <span class="cmt">// Detach from CD tree</span></code></pre></div>`
+          }
+        ]
+      },
+      {
+        title: "🛠️ Angular CLI & Tooling",
+        questions: [
+          {
+            id: "angular-q18",
+            q: "What is Angular CLI?",
+            a: `<p>Angular CLI is a <strong>command-line interface</strong> for scaffolding, building, and maintaining Angular apps.</p>
+<div class="code-block"><div class="code-header"><span class="code-lang"><span class="code-lang-dot bash"></span>Bash</span><button class="code-copy" onclick="copyCode(this)">Copy</button></div><pre><code><span class="cmt"># Create new project</span>
+ng new my-project --style=scss --routing
+
+<span class="cmt"># Generate code</span>
+ng g c my-component    <span class="cmt"># Component</span>
+ng g s my-service      <span class="cmt"># Service</span>
+ng g m my-module       <span class="cmt"># Module</span>
+ng g d my-directive    <span class="cmt"># Directive</span>
+ng g p my-pipe         <span class="cmt"># Pipe</span>
+
+<span class="cmt"># Build & Serve</span>
+ng serve --port <span class="num">4300</span>
+ng build --configuration=production
+ng test --code-coverage</code></pre></div>`
+          },
+          {
+            id: "angular-q19",
+            q: "What is the Angular project structure?",
+            a: `<div class="code-block"><div class="code-header"><span class="code-lang"><span class="code-lang-dot other"></span>Project Structure</span></div><pre><code>my-angular-app/
+├── src/
+│   ├── app/
+│   │   ├── components/     <span class="cmt"># Components</span>
+│   │   ├── services/       <span class="cmt"># Services</span>
+│   │   ├── models/         <span class="cmt"># Interfaces/types</span>
+│   │   ├── guards/         <span class="cmt"># Route guards</span>
+│   │   ├── app.module.ts   <span class="cmt"># Root module</span>
+│   │   └── app-routing.module.ts
+│   ├── assets/             <span class="cmt"># Static assets</span>
+│   ├── environments/       <span class="cmt"># Env files</span>
+│   ├── index.html          <span class="cmt"># Main HTML</span>
+│   └── main.ts             <span class="cmt"># Entry point</span>
+├── angular.json            <span class="cmt"># CLI config</span>
+├── package.json
+└── tsconfig.json</code></pre></div>`
+          },
+          {
+            id: "angular-q20",
+            q: "How do you deploy an Angular application?",
+            a: `<p><strong>Step 1:</strong> Build for production with <code>ng build --prod</code></p>
+<p><strong>Deployment Options:</strong></p>
+<ol>
+  <li><strong>Static Hosting</strong> – Netlify, Vercel, Firebase, GitHub Pages</li>
+  <li><strong>Nginx/Apache</strong> – Copy dist/ files to server</li>
+  <li><strong>Docker</strong> – Containerized with Nginx</li>
+  <li><strong>AWS S3 + CloudFront</strong> – Scalable static hosting</li>
+</ol>
+<div class="code-block"><div class="code-header"><span class="code-lang"><span class="code-lang-dot bash"></span>Bash — Docker Deploy</span><button class="code-copy" onclick="copyCode(this)">Copy</button></div><pre><code>FROM nginx:alpine
+COPY dist/my-app /usr/share/nginx/html
+EXPOSE <span class="num">80</span>
+CMD [<span class="str">"nginx"</span>, <span class="str">"-g"</span>, <span class="str">"daemon off;"</span>]
+
+<span class="cmt"># Build and run</span>
+docker build -t my-angular-app .
+docker run -p <span class="num">80</span>:<span class="num">80</span> my-angular-app</code></pre></div>
+<div class="experience-block">💼 <strong>Your Experience:</strong> You've worked with AWS services (S3, Lambda, etc.) for deployment.</div>`
+          }
+        ]
+      }
+    ]
+  },
+
+  // ========== JAVASCRIPT ==========
+  {
+    id: "js",
+    icon: "🟨",
+    title: "JavaScript Questions",
+    subtitle: "Core Concepts, ES6+, Arrays & Objects, Common Problems",
+    meta: "25 Questions · Core JS Fundamentals",
+    sections: [
+      {
+        title: "📌 Core JavaScript Concepts",
+        questions: [
+          { id: "js-q1", q: "What are the different data types in JavaScript?", a: `<p>JavaScript has <strong>7 primitive types</strong> and <strong>1 reference type</strong>:</p><p><strong>Primitive (stored by value):</strong> <code>string</code>, <code>number</code>, <code>boolean</code>, <code>undefined</code>, <code>null</code>, <code>symbol</code>, <code>bigint</code></p><p><strong>Reference:</strong> <code>object</code> (objects, arrays, functions)</p><div class="code-block"><div class="code-header"><span class="code-lang"><span class="code-lang-dot js"></span>JavaScript</span><button class="code-copy" onclick="copyCode(this)">Copy</button></div><pre><code><span class="kw">typeof</span> <span class="str">"hello"</span>      <span class="cmt">// "string"</span>
+<span class="kw">typeof</span> <span class="num">42</span>          <span class="cmt">// "number"</span>
+<span class="kw">typeof</span> <span class="kw">true</span>        <span class="cmt">// "boolean"</span>
+<span class="kw">typeof</span> <span class="kw">undefined</span>   <span class="cmt">// "undefined"</span>
+<span class="kw">typeof</span> <span class="kw">null</span>        <span class="cmt">// "object" (bug!)</span>
+<span class="kw">typeof</span> []          <span class="cmt">// "object" (arrays are objects)</span>
+<span class="kw">typeof</span> <span class="kw">function</span>(){} <span class="cmt">// "function"</span></code></pre></div>` },
+          { id: "js-q2", q: "What is the difference between let, const, and var?", a: `<div class="table-wrapper"><table><tr><th>Feature</th><th>var</th><th>let</th><th>const</th></tr><tr><td><strong>Scope</strong></td><td>Function-scoped</td><td>Block-scoped</td><td>Block-scoped</td></tr><tr><td><strong>Hoisting</strong></td><td>Hoisted, init as undefined</td><td>Hoisted, not init (TDZ)</td><td>Hoisted, not init (TDZ)</td></tr><tr><td><strong>Reassignment</strong></td><td>Allowed</td><td>Allowed</td><td><strong>Not allowed</strong></td></tr><tr><td><strong>Redeclaration</strong></td><td>Allowed</td><td>Not allowed</td><td>Not allowed</td></tr></table></div><div class="code-block"><div class="code-header"><span class="code-lang"><span class="code-lang-dot js"></span>JavaScript</span><button class="code-copy" onclick="copyCode(this)">Copy</button></div><pre><code><span class="kw">if</span> (<span class="kw">true</span>) {
+  <span class="kw">var</span> a = <span class="num">1</span>;    <span class="cmt">// Function-scoped</span>
+  <span class="kw">let</span> b = <span class="num">2</span>;    <span class="cmt">// Block-scoped</span>
+  <span class="kw">const</span> c = <span class="num">3</span>;  <span class="cmt">// Block-scoped</span>
+}
+console.<span class="fn">log</span>(a); <span class="cmt">// 1</span>
+console.<span class="fn">log</span>(b); <span class="cmt">// ReferenceError</span></code></pre></div>` },
+          { id: "js-q3", q: "What is hoisting in JavaScript?", a: `<p>Hoisting moves <strong>declarations</strong> to the top of their scope.</p><div class="code-block"><div class="code-header"><span class="code-lang"><span class="code-lang-dot js"></span>JavaScript</span><button class="code-copy" onclick="copyCode(this)">Copy</button></div><pre><code>console.<span class="fn">log</span>(x); <span class="cmt">// undefined (var is hoisted)</span>
+<span class="kw">var</span> x = <span class="num">5</span>;
+
+console.<span class="fn">log</span>(y); <span class="cmt">// ReferenceError (let is in TDZ)</span>
+<span class="kw">let</span> y = <span class="num">5</span>;
+
+<span class="fn">sayHello</span>(); <span class="cmt">// "Hello" (function declarations are hoisted)</span>
+<span class="kw">function</span> <span class="fn">sayHello</span>() { console.<span class="fn">log</span>(<span class="str">"Hello"</span>); }
+
+<span class="fn">sayHi</span>(); <span class="cmt">// TypeError (function expressions are NOT hoisted)</span>
+<span class="kw">const</span> <span class="fn">sayHi</span> = <span class="kw">function</span>() { console.<span class="fn">log</span>(<span class="str">"Hi"</span>); };</code></pre></div>` },
+          { id: "js-q4", q: "What is the difference between == and ===?", a: `<div class="table-wrapper"><table><tr><th>Operator</th><th>Name</th><th>Type Coercion</th><th>Example</th></tr><tr><td><code>==</code></td><td>Loose equality</td><td>Yes</td><td><code>5 == '5' → true</code></td></tr><tr><td><code>===</code></td><td>Strict equality</td><td>No</td><td><code>5 === '5' → false</code></td></tr></table></div><p><strong>Coercion quirks:</strong> <code>null == undefined → true</code>, <code>0 == false → true</code>, <code>'' == false → true</code></p><div class="tip-block">💡 <strong>Best Practice:</strong> Always use <code>===</code> and <code>!==</code> to avoid unexpected type coercion.</div>` },
+          { id: "js-q5", q: "What are closures in JavaScript?", a: `<p>A closure is a function that <strong>remembers its outer variables</strong> even after the outer function has finished.</p><div class="code-block"><div class="code-header"><span class="code-lang"><span class="code-lang-dot js"></span>JavaScript</span><button class="code-copy" onclick="copyCode(this)">Copy</button></div><pre><code><span class="kw">function</span> <span class="fn">outer</span>() {
+  <span class="kw">let</span> count = <span class="num">0</span>;
+  <span class="kw">return function</span> <span class="fn">inner</span>() {
+    count++;
+    <span class="kw">return</span> count;
+  };
+}
+
+<span class="kw">const</span> counter = <span class="fn">outer</span>();
+console.<span class="fn">log</span>(<span class="fn">counter</span>()); <span class="cmt">// 1</span>
+console.<span class="fn">log</span>(<span class="fn">counter</span>()); <span class="cmt">// 2</span>
+console.<span class="fn">log</span>(<span class="fn">counter</span>()); <span class="cmt">// 3</span></code></pre></div><p><strong>Use Cases:</strong> Data privacy, function factories, event handlers, currying</p>` },
+          { id: "js-q6", q: "What is the 'this' keyword in JavaScript?", a: `<p><code>this</code> refers to the <strong>execution context</strong>.</p><ol><li><strong>Global context</strong> → <code>window</code> / <code>global</code></li><li><strong>Method</strong> → Object before the dot</li><li><strong>Constructor (new)</strong> → New object being created</li><li><strong>Arrow functions</strong> → Inherits from outer scope</li><li><strong>call/apply/bind</strong> → Explicitly set</li></ol><div class="code-block"><div class="code-header"><span class="code-lang"><span class="code-lang-dot js"></span>JavaScript</span><button class="code-copy" onclick="copyCode(this)">Copy</button></div><pre><code><span class="kw">const</span> obj = {
+  <span class="prop">name</span>: <span class="str">"Tanay"</span>,
+  <span class="fn">greet</span>() { console.<span class="fn">log</span>(<span class="kw">this</span>.name); } <span class="cmt">// "Tanay"</span>
+};
+
+<span class="kw">const</span> obj2 = {
+  <span class="prop">name</span>: <span class="str">"Tanay"</span>,
+  <span class="fn">greet</span>: () <span class="op">=&gt;</span> { console.<span class="fn">log</span>(<span class="kw">this</span>.name); } <span class="cmt">// undefined!</span>
+};</code></pre></div>` },
+          { id: "js-q7", q: "Arrow functions vs regular functions?", a: `<div class="table-wrapper"><table><tr><th>Feature</th><th>Regular</th><th>Arrow</th></tr><tr><td><code>this</code></td><td>Own this</td><td>Inherits outer</td></tr><tr><td><code>arguments</code></td><td>Has it</td><td>No (use rest params)</td></tr><tr><td><code>new</code></td><td>Can use</td><td>Cannot</td></tr><tr><td>Hoisting</td><td>Hoisted</td><td>Not hoisted</td></tr></table></div><div class="code-block"><div class="code-header"><span class="code-lang"><span class="code-lang-dot js"></span>JavaScript</span><button class="code-copy" onclick="copyCode(this)">Copy</button></div><pre><code><span class="kw">const</span> <span class="fn">add</span> = (a, b) <span class="op">=&gt;</span> a + b;
+<span class="kw">const</span> <span class="fn">square</span> = x <span class="op">=&gt;</span> x * x;
+<span class="kw">const</span> <span class="fn">getPi</span> = () <span class="op">=&gt;</span> <span class="num">3.14</span>;</code></pre></div>` },
+          { id: "js-q8", q: "What is the event loop in JavaScript?", a: `<p>JavaScript is <strong>single-threaded</strong> but uses an <strong>event loop</strong> to handle async operations.</p><div class="diagram-container"><svg viewBox="0 0 520 200" xmlns="http://www.w3.org/2000/svg" width="520"><rect x="10" y="30" width="120" height="140" rx="10" fill="#82aaff10" stroke="#82aaff50"/><text x="70" y="55" text-anchor="middle" fill="#82aaff" font-size="11" font-weight="bold" font-family="Inter">Call Stack</text><text x="70" y="80" text-anchor="middle" fill="#546e7a" font-size="9" font-family="Inter">LIFO</text><rect x="40" y="90" width="60" height="20" rx="4" fill="#1a2236" stroke="#1e3a5f"/><text x="70" y="105" text-anchor="middle" fill="#94a3b8" font-size="8" font-family="JetBrains Mono">fn()</text><rect x="40" y="115" width="60" height="20" rx="4" fill="#1a2236" stroke="#1e3a5f"/><text x="70" y="130" text-anchor="middle" fill="#94a3b8" font-size="8" font-family="JetBrains Mono">main()</text><rect x="180" y="30" width="120" height="60" rx="10" fill="#ffcb6b10" stroke="#ffcb6b50"/><text x="240" y="55" text-anchor="middle" fill="#ffcb6b" font-size="11" font-weight="bold" font-family="Inter">Web APIs</text><text x="240" y="75" text-anchor="middle" fill="#546e7a" font-size="8" font-family="Inter">setTimeout, DOM, fetch</text><rect x="180" y="110" width="120" height="60" rx="10" fill="#c792ea10" stroke="#c792ea50"/><text x="240" y="133" text-anchor="middle" fill="#c792ea" font-size="10" font-weight="bold" font-family="Inter">Microtask Queue</text><text x="240" y="153" text-anchor="middle" fill="#546e7a" font-size="8" font-family="Inter">Promises (priority)</text><rect x="350" y="30" width="140" height="60" rx="10" fill="#c3e88d10" stroke="#c3e88d50"/><text x="420" y="55" text-anchor="middle" fill="#c3e88d" font-size="10" font-weight="bold" font-family="Inter">Callback Queue</text><text x="420" y="75" text-anchor="middle" fill="#546e7a" font-size="8" font-family="Inter">setTimeout, setInterval</text><rect x="350" y="110" width="140" height="60" rx="10" fill="#f0717815" stroke="#f0717860"/><text x="420" y="133" text-anchor="middle" fill="#f07178" font-size="11" font-weight="bold" font-family="Inter">Event Loop</text><text x="420" y="153" text-anchor="middle" fill="#546e7a" font-size="8" font-family="Inter">Checks stack empty</text></svg></div><div class="code-block"><div class="code-header"><span class="code-lang"><span class="code-lang-dot js"></span>JavaScript</span><button class="code-copy" onclick="copyCode(this)">Copy</button></div><pre><code>console.<span class="fn">log</span>(<span class="str">"Start"</span>);
+<span class="fn">setTimeout</span>(() <span class="op">=&gt;</span> console.<span class="fn">log</span>(<span class="str">"Timeout"</span>), <span class="num">0</span>);
+<span class="type">Promise</span>.<span class="fn">resolve</span>().<span class="fn">then</span>(() <span class="op">=&gt;</span> console.<span class="fn">log</span>(<span class="str">"Promise"</span>));
+console.<span class="fn">log</span>(<span class="str">"End"</span>);
+
+<span class="cmt">// Output: Start → End → Promise → Timeout</span></code></pre></div><div class="note-block">📝 <strong>Microtasks</strong> (Promises) have higher priority than <strong>Macrotasks</strong> (setTimeout).</div>` },
+          { id: "js-q9", q: "What are Promises in JavaScript?", a: `<p>A <strong>Promise</strong> represents the eventual completion or failure of an async operation.</p><p><strong>States:</strong> Pending → Fulfilled / Rejected</p><div class="code-block"><div class="code-header"><span class="code-lang"><span class="code-lang-dot js"></span>JavaScript</span><button class="code-copy" onclick="copyCode(this)">Copy</button></div><pre><code><span class="kw">const</span> promise = <span class="kw">new</span> <span class="type">Promise</span>((resolve, reject) <span class="op">=&gt;</span> {
+  <span class="kw">if</span> (success) <span class="fn">resolve</span>(<span class="str">"Success!"</span>);
+  <span class="kw">else</span> <span class="fn">reject</span>(<span class="str">"Error!"</span>);
+});
+
+promise
+  .<span class="fn">then</span>(result <span class="op">=&gt;</span> console.<span class="fn">log</span>(result))
+  .<span class="fn">catch</span>(error <span class="op">=&gt;</span> console.<span class="fn">error</span>(error))
+  .<span class="fn">finally</span>(() <span class="op">=&gt;</span> console.<span class="fn">log</span>(<span class="str">"Done"</span>));</code></pre></div>` },
+          { id: "js-q10", q: "What is async/await?", a: `<p><code>async/await</code> is <strong>syntactic sugar</strong> over Promises.</p><div class="code-block"><div class="code-header"><span class="code-lang"><span class="code-lang-dot js"></span>JavaScript</span><button class="code-copy" onclick="copyCode(this)">Copy</button></div><pre><code><span class="kw">async function</span> <span class="fn">fetchData</span>() {
+  <span class="kw">try</span> {
+    <span class="kw">const</span> response = <span class="kw">await</span> <span class="fn">fetch</span>(<span class="str">'/api/data'</span>);
+    <span class="kw">const</span> data = <span class="kw">await</span> response.<span class="fn">json</span>();
+    console.<span class="fn">log</span>(data);
+  } <span class="kw">catch</span> (error) {
+    console.<span class="fn">error</span>(error);
+  }
+}
+
+<span class="cmt">// Parallel execution</span>
+<span class="kw">const</span> [user, posts] = <span class="kw">await</span> <span class="type">Promise</span>.<span class="fn">all</span>([
+  <span class="fn">fetchUser</span>(), <span class="fn">fetchPosts</span>()
+]);</code></pre></div>
+<div class="table-wrapper"><table><tr><th>Feature</th><th>Callbacks</th><th>Promises</th><th>Async/Await</th></tr><tr><td>Readability</td><td>Callback hell</td><td>Better</td><td>Best (looks sync)</td></tr><tr><td>Error handling</td><td>Manual</td><td>.catch()</td><td>try/catch</td></tr></table></div>` }
+        ]
+      },
+      {
+        title: "📦 Arrays & Objects",
+        questions: [
+          { id: "js-q11", q: "What are common array methods?", a: `<div class="code-block"><div class="code-header"><span class="code-lang"><span class="code-lang-dot js"></span>JavaScript</span><button class="code-copy" onclick="copyCode(this)">Copy</button></div><pre><code><span class="cmt">// Iteration</span>
+arr.<span class="fn">forEach</span>(item <span class="op">=&gt;</span> console.<span class="fn">log</span>(item));
+arr.<span class="fn">map</span>(item <span class="op">=&gt;</span> item * <span class="num">2</span>);        <span class="cmt">// New array</span>
+arr.<span class="fn">filter</span>(item <span class="op">=&gt;</span> item &gt; <span class="num">10</span>);   <span class="cmt">// New array</span>
+arr.<span class="fn">find</span>(item <span class="op">=&gt;</span> item.id === <span class="num">5</span>); <span class="cmt">// First match</span>
+arr.<span class="fn">some</span>(item <span class="op">=&gt;</span> item &gt; <span class="num">10</span>);     <span class="cmt">// true/false</span>
+arr.<span class="fn">every</span>(item <span class="op">=&gt;</span> item &gt; <span class="num">10</span>);    <span class="cmt">// true/false</span>
+
+<span class="cmt">// Transformation</span>
+arr.<span class="fn">reduce</span>((acc, item) <span class="op">=&gt;</span> acc + item, <span class="num">0</span>); <span class="cmt">// Sum</span>
+arr.<span class="fn">flat</span>();     <span class="cmt">// Flatten</span>
+arr.<span class="fn">sort</span>((a, b) <span class="op">=&gt;</span> a - b); <span class="cmt">// Numeric sort</span></code></pre></div>` },
+          { id: "js-q12", q: "Shallow copy vs deep copy?", a: `<p><strong>Shallow</strong> copies top-level only; nested objects are still referenced. <strong>Deep</strong> copies all levels recursively.</p><div class="code-block"><div class="code-header"><span class="code-lang"><span class="code-lang-dot js"></span>JavaScript</span><button class="code-copy" onclick="copyCode(this)">Copy</button></div><pre><code><span class="cmt">// Shallow</span>
+<span class="kw">const</span> copy = { ...original };
+<span class="kw">const</span> copy = <span class="type">Object</span>.<span class="fn">assign</span>({}, original);
+
+<span class="cmt">// Deep</span>
+<span class="kw">const</span> deep = <span class="type">JSON</span>.<span class="fn">parse</span>(<span class="type">JSON</span>.<span class="fn">stringify</span>(original));
+<span class="kw">const</span> deep = <span class="fn">structuredClone</span>(original); <span class="cmt">// Modern</span>
+<span class="kw">const</span> deep = _.<span class="fn">cloneDeep</span>(original);     <span class="cmt">// Lodash</span></code></pre></div>` },
+          { id: "js-q13", q: "What are object methods in JavaScript?", a: `<div class="code-block"><div class="code-header"><span class="code-lang"><span class="code-lang-dot js"></span>JavaScript</span><button class="code-copy" onclick="copyCode(this)">Copy</button></div><pre><code><span class="type">Object</span>.<span class="fn">keys</span>(obj);     <span class="cmt">// ['a', 'b']</span>
+<span class="type">Object</span>.<span class="fn">values</span>(obj);   <span class="cmt">// [1, 2]</span>
+<span class="type">Object</span>.<span class="fn">entries</span>(obj);  <span class="cmt">// [['a', 1], ['b', 2]]</span>
+<span class="type">Object</span>.<span class="fn">freeze</span>(obj);   <span class="cmt">// Prevent modifications</span>
+<span class="type">Object</span>.<span class="fn">seal</span>(obj);     <span class="cmt">// Prevent add/remove props</span></code></pre></div>` }
+        ]
+      },
+      {
+        title: "⚡ ES6+ Features",
+        questions: [
+          { id: "js-q14", q: "What are template literals?", a: `<div class="code-block"><div class="code-header"><span class="code-lang"><span class="code-lang-dot js"></span>JavaScript</span><button class="code-copy" onclick="copyCode(this)">Copy</button></div><pre><code><span class="kw">const</span> name = <span class="str">"Tanay"</span>;
+console.<span class="fn">log</span>(<span class="str">\`Hello, \${name}!\`</span>); <span class="cmt">// "Hello, Tanay!"</span>
+
+<span class="cmt">// Multi-line</span>
+<span class="kw">const</span> msg = <span class="str">\`
+  Hello, \${name}!
+  You are \${age} years old.
+\`</span>;</code></pre></div>` },
+          { id: "js-q15", q: "What are destructuring assignments?", a: `<div class="code-block"><div class="code-header"><span class="code-lang"><span class="code-lang-dot js"></span>JavaScript</span><button class="code-copy" onclick="copyCode(this)">Copy</button></div><pre><code><span class="cmt">// Object</span>
+<span class="kw">const</span> { name, age } = user;
+<span class="kw">const</span> { name: userName } = user; <span class="cmt">// alias</span>
+<span class="kw">const</span> { country = <span class="str">"India"</span> } = user; <span class="cmt">// default</span>
+<span class="kw">const</span> { name, ...rest } = user; <span class="cmt">// rest</span>
+
+<span class="cmt">// Array</span>
+<span class="kw">const</span> [a, b] = [<span class="num">1</span>, <span class="num">2</span>];
+<span class="kw">const</span> [first, , third] = arr; <span class="cmt">// skip</span>
+
+<span class="cmt">// Swap</span>
+<span class="kw">let</span> a = <span class="num">1</span>, b = <span class="num">2</span>;
+[a, b] = [b, a]; <span class="cmt">// a=2, b=1</span></code></pre></div>` },
+          { id: "js-q16", q: "Spread and rest operators?", a: `<div class="code-block"><div class="code-header"><span class="code-lang"><span class="code-lang-dot js"></span>JavaScript</span><button class="code-copy" onclick="copyCode(this)">Copy</button></div><pre><code><span class="cmt">// Spread (expand)</span>
+<span class="kw">const</span> arr2 = [...arr1, <span class="num">3</span>, <span class="num">4</span>];
+<span class="kw">const</span> obj2 = { ...obj1, <span class="prop">c</span>: <span class="num">3</span> };
+console.<span class="fn">log</span>(<span class="type">Math</span>.<span class="fn">max</span>(...nums));
+
+<span class="cmt">// Rest (collect)</span>
+<span class="kw">function</span> <span class="fn">sum</span>(...numbers) {
+  <span class="kw">return</span> numbers.<span class="fn">reduce</span>((a, b) <span class="op">=&gt;</span> a + b, <span class="num">0</span>);
+}</code></pre></div>` },
+          { id: "js-q17", q: "What are default parameters?", a: `<div class="code-block"><div class="code-header"><span class="code-lang"><span class="code-lang-dot js"></span>JavaScript</span><button class="code-copy" onclick="copyCode(this)">Copy</button></div><pre><code><span class="kw">function</span> <span class="fn">greet</span>(name = <span class="str">"Guest"</span>, age = <span class="num">18</span>) {
+  <span class="kw">return</span> <span class="str">\`Hello, \${name}! You are \${age}.\`</span>;
+}
+<span class="fn">greet</span>();          <span class="cmt">// "Hello, Guest! You are 18."</span>
+<span class="fn">greet</span>(<span class="str">"Tanay"</span>); <span class="cmt">// "Hello, Tanay! You are 18."</span></code></pre></div>` },
+          { id: "js-q18", q: "What are classes in JavaScript?", a: `<p>Classes are <strong>syntactic sugar</strong> over prototype-based inheritance.</p><div class="code-block"><div class="code-header"><span class="code-lang"><span class="code-lang-dot js"></span>JavaScript</span><button class="code-copy" onclick="copyCode(this)">Copy</button></div><pre><code><span class="kw">class</span> <span class="type">Person</span> {
+  <span class="fn">constructor</span>(name, age) {
+    <span class="kw">this</span>.name = name;
+    <span class="kw">this</span>.age = age;
+  }
+  <span class="fn">greet</span>() { console.<span class="fn">log</span>(<span class="str">\`Hello, I'm \${this.name}\`</span>); }
+  <span class="kw">static</span> <span class="fn">isAdult</span>(age) { <span class="kw">return</span> age &gt;= <span class="num">18</span>; }
+}
+
+<span class="kw">class</span> <span class="type">Student</span> <span class="kw">extends</span> <span class="type">Person</span> {
+  <span class="fn">constructor</span>(name, age, grade) {
+    <span class="kw">super</span>(name, age);
+    <span class="kw">this</span>.grade = grade;
+  }
+}</code></pre></div>` }
+        ]
+      },
+      {
+        title: "🔍 Common JavaScript Problems",
+        questions: [
+          { id: "js-q19", q: "How to check if variable is an array?", a: `<div class="code-block"><div class="code-header"><span class="code-lang"><span class="code-lang-dot js"></span>JavaScript</span><button class="code-copy" onclick="copyCode(this)">Copy</button></div><pre><code><span class="type">Array</span>.<span class="fn">isArray</span>(arr); <span class="cmt">// ✅ Best way</span></code></pre></div>` },
+          { id: "js-q20", q: "How to check if an object is empty?", a: `<div class="code-block"><div class="code-header"><span class="code-lang"><span class="code-lang-dot js"></span>JavaScript</span><button class="code-copy" onclick="copyCode(this)">Copy</button></div><pre><code><span class="type">Object</span>.<span class="fn">keys</span>(obj).length === <span class="num">0</span>; <span class="cmt">// For plain objects</span>
+arr.length === <span class="num">0</span>;               <span class="cmt">// For arrays</span></code></pre></div>` },
+          { id: "js-q21", q: "How to deep clone an object?", a: `<div class="code-block"><div class="code-header"><span class="code-lang"><span class="code-lang-dot js"></span>JavaScript</span><button class="code-copy" onclick="copyCode(this)">Copy</button></div><pre><code><span class="kw">const</span> clone = <span class="type">JSON</span>.<span class="fn">parse</span>(<span class="type">JSON</span>.<span class="fn">stringify</span>(original)); <span class="cmt">// Simple</span>
+<span class="kw">const</span> clone = <span class="fn">structuredClone</span>(original);          <span class="cmt">// Modern</span>
+<span class="kw">const</span> clone = _.<span class="fn">cloneDeep</span>(original);               <span class="cmt">// Lodash</span></code></pre></div>` },
+          { id: "js-q22", q: "How to merge two objects?", a: `<div class="code-block"><div class="code-header"><span class="code-lang"><span class="code-lang-dot js"></span>JavaScript</span><button class="code-copy" onclick="copyCode(this)">Copy</button></div><pre><code><span class="kw">const</span> merged = { ...obj1, ...obj2 }; <span class="cmt">// Shallow</span></code></pre></div>` },
+          { id: "js-q23", q: "How to flatten an array?", a: `<div class="code-block"><div class="code-header"><span class="code-lang"><span class="code-lang-dot js"></span>JavaScript</span><button class="code-copy" onclick="copyCode(this)">Copy</button></div><pre><code>arr.<span class="fn">flat</span>();      <span class="cmt">// 1-level flatten</span>
+arr.<span class="fn">flat</span>(<span class="num">Infinity</span>); <span class="cmt">// Deep flatten</span>
+
+<span class="cmt">// Recursive</span>
+<span class="kw">function</span> <span class="fn">flatten</span>(arr) {
+  <span class="kw">return</span> arr.<span class="fn">reduce</span>((acc, val) <span class="op">=&gt;</span>
+    acc.<span class="fn">concat</span>(<span class="type">Array</span>.<span class="fn">isArray</span>(val) ? <span class="fn">flatten</span>(val) : val), []);
+}</code></pre></div>` },
+          { id: "js-q24", q: "How to remove duplicates from an array?", a: `<div class="code-block"><div class="code-header"><span class="code-lang"><span class="code-lang-dot js"></span>JavaScript</span><button class="code-copy" onclick="copyCode(this)">Copy</button></div><pre><code><span class="kw">const</span> unique = [...<span class="kw">new</span> <span class="type">Set</span>(arr)]; <span class="cmt">// For primitives</span></code></pre></div>` },
+          { id: "js-q25", q: "How to check if two objects are equal?", a: `<div class="code-block"><div class="code-header"><span class="code-lang"><span class="code-lang-dot js"></span>JavaScript</span><button class="code-copy" onclick="copyCode(this)">Copy</button></div><pre><code><span class="cmt">// Shallow</span>
+<span class="type">JSON</span>.<span class="fn">stringify</span>(obj1) === <span class="type">JSON</span>.<span class="fn">stringify</span>(obj2);
+
+<span class="cmt">// Deep (Lodash)</span>
+_.<span class="fn">isEqual</span>(obj1, obj2);</code></pre></div>` }
+        ]
+      }
+    ]
+  },
+
+  // ========== DSA ==========
+  {
+    id: "dsa",
+    icon: "🔢",
+    title: "DSA Questions",
+    subtitle: "Data Structures, Algorithms & System Design",
+    meta: "25 Questions · Arrays, Trees, Sorting, DP, System Design",
+    sections: [
+      {
+        title: "🏗️ Arrays & Strings",
+        questions: [
+          { id: "dsa-q1", q: "Reverse a String", a: `<div class="code-block"><div class="code-header"><span class="code-lang"><span class="code-lang-dot js"></span>JavaScript</span><button class="code-copy" onclick="copyCode(this)">Copy</button></div><pre><code><span class="cmt">// Method 1: Built-in</span>
+<span class="kw">const</span> <span class="fn">reverse</span> = str <span class="op">=&gt;</span> str.<span class="fn">split</span>(<span class="str">''</span>).<span class="fn">reverse</span>().<span class="fn">join</span>(<span class="str">''</span>);
+
+<span class="cmt">// Method 2: Two pointers — O(n) time, O(n) space</span>
+<span class="kw">function</span> <span class="fn">reverseString</span>(str) {
+  <span class="kw">let</span> result = <span class="str">''</span>;
+  <span class="kw">for</span> (<span class="kw">let</span> i = str.length - <span class="num">1</span>; i &gt;= <span class="num">0</span>; i--) {
+    result += str[i];
+  }
+  <span class="kw">return</span> result;
+}</code></pre></div>` },
+          { id: "dsa-q2", q: "Find first non-repeating character", a: `<div class="code-block"><div class="code-header"><span class="code-lang"><span class="code-lang-dot js"></span>JavaScript</span><button class="code-copy" onclick="copyCode(this)">Copy</button></div><pre><code><span class="kw">function</span> <span class="fn">firstNonRepeatingChar</span>(str) {
+  <span class="kw">const</span> charCount = {};
+  <span class="kw">for</span> (<span class="kw">const</span> char <span class="kw">of</span> str)
+    charCount[char] = (charCount[char] || <span class="num">0</span>) + <span class="num">1</span>;
+  <span class="kw">for</span> (<span class="kw">const</span> char <span class="kw">of</span> str)
+    <span class="kw">if</span> (charCount[char] === <span class="num">1</span>) <span class="kw">return</span> char;
+  <span class="kw">return</span> <span class="kw">null</span>;
+}
+<span class="cmt">// Time: O(n), Space: O(1)</span></code></pre></div>` },
+          { id: "dsa-q3", q: "Two Sum Problem", a: `<div class="code-block"><div class="code-header"><span class="code-lang"><span class="code-lang-dot js"></span>JavaScript — Hash Map O(n)</span><button class="code-copy" onclick="copyCode(this)">Copy</button></div><pre><code><span class="kw">function</span> <span class="fn">twoSum</span>(nums, target) {
+  <span class="kw">const</span> map = {};
+  <span class="kw">for</span> (<span class="kw">let</span> i = <span class="num">0</span>; i &lt; nums.length; i++) {
+    <span class="kw">const</span> complement = target - nums[i];
+    <span class="kw">if</span> (map.<span class="fn">hasOwnProperty</span>(complement))
+      <span class="kw">return</span> [map[complement], i];
+    map[nums[i]] = i;
+  }
+  <span class="kw">return</span> [];
+}
+<span class="cmt">// Input: [2,7,11,15], target=9 → [0,1]</span></code></pre></div>` },
+          { id: "dsa-q4", q: "Longest substring without repeating characters", a: `<div class="code-block"><div class="code-header"><span class="code-lang"><span class="code-lang-dot js"></span>JavaScript — Sliding Window O(n)</span><button class="code-copy" onclick="copyCode(this)">Copy</button></div><pre><code><span class="kw">function</span> <span class="fn">lengthOfLongestSubstring</span>(s) {
+  <span class="kw">let</span> max = <span class="num">0</span>, start = <span class="num">0</span>;
+  <span class="kw">const</span> map = {};
+  <span class="kw">for</span> (<span class="kw">let</span> end = <span class="num">0</span>; end &lt; s.length; end++) {
+    <span class="kw">if</span> (map[s[end]] &gt;= start) start = map[s[end]] + <span class="num">1</span>;
+    map[s[end]] = end;
+    max = <span class="type">Math</span>.<span class="fn">max</span>(max, end - start + <span class="num">1</span>);
+  }
+  <span class="kw">return</span> max;
+}
+<span class="cmt">// "abcabcbb" → 3 ("abc")</span></code></pre></div>` },
+          { id: "dsa-q5", q: "Merge two sorted arrays", a: `<div class="code-block"><div class="code-header"><span class="code-lang"><span class="code-lang-dot js"></span>JavaScript — O(n+m)</span><button class="code-copy" onclick="copyCode(this)">Copy</button></div><pre><code><span class="kw">function</span> <span class="fn">mergeSortedArrays</span>(a, b) {
+  <span class="kw">let</span> result = [], i = <span class="num">0</span>, j = <span class="num">0</span>;
+  <span class="kw">while</span> (i &lt; a.length && j &lt; b.length)
+    result.<span class="fn">push</span>(a[i] &lt; b[j] ? a[i++] : b[j++]);
+  <span class="kw">return</span> [...result, ...a.<span class="fn">slice</span>(i), ...b.<span class="fn">slice</span>(j)];
+}</code></pre></div>` }
+        ]
+      },
+      {
+        title: "🔗 Linked Lists / Stacks & Queues",
+        questions: [
+          { id: "dsa-q6", q: "Reverse a Linked List", a: `<div class="code-block"><div class="code-header"><span class="code-lang"><span class="code-lang-dot ts"></span>TypeScript — O(n) time, O(1) space</span><button class="code-copy" onclick="copyCode(this)">Copy</button></div><pre><code><span class="kw">function</span> <span class="fn">reverseList</span>(head) {
+  <span class="kw">let</span> prev = <span class="kw">null</span>, current = head;
+  <span class="kw">while</span> (current !== <span class="kw">null</span>) {
+    <span class="kw">const</span> next = current.next;
+    current.next = prev;
+    prev = current;
+    current = next;
+  }
+  <span class="kw">return</span> prev;
+}</code></pre></div>` },
+          { id: "dsa-q7", q: "Detect cycle in linked list (Floyd's Algorithm)", a: `<div class="code-block"><div class="code-header"><span class="code-lang"><span class="code-lang-dot ts"></span>TypeScript — Tortoise & Hare</span><button class="code-copy" onclick="copyCode(this)">Copy</button></div><pre><code><span class="kw">function</span> <span class="fn">hasCycle</span>(head) {
+  <span class="kw">let</span> slow = head, fast = head;
+  <span class="kw">while</span> (fast !== <span class="kw">null</span> && fast.next !== <span class="kw">null</span>) {
+    slow = slow.next;
+    fast = fast.next.next;
+    <span class="kw">if</span> (slow === fast) <span class="kw">return true</span>;
+  }
+  <span class="kw">return false</span>;
+}
+<span class="cmt">// Time: O(n), Space: O(1)</span></code></pre></div><div class="diagram-container"><svg viewBox="0 0 400 100" xmlns="http://www.w3.org/2000/svg" width="400"><circle cx="30" cy="50" r="18" fill="#1a2236" stroke="#06b6d4" stroke-width="1.5"/><text x="30" y="55" text-anchor="middle" fill="#22d3ee" font-size="11" font-family="Inter">1</text><circle cx="100" cy="50" r="18" fill="#1a2236" stroke="#06b6d4" stroke-width="1.5"/><text x="100" y="55" text-anchor="middle" fill="#22d3ee" font-size="11" font-family="Inter">2</text><circle cx="170" cy="50" r="18" fill="#1a2236" stroke="#06b6d4" stroke-width="1.5"/><text x="170" y="55" text-anchor="middle" fill="#22d3ee" font-size="11" font-family="Inter">3</text><circle cx="240" cy="50" r="18" fill="#1a2236" stroke="#06b6d4" stroke-width="1.5"/><text x="240" y="55" text-anchor="middle" fill="#22d3ee" font-size="11" font-family="Inter">4</text><circle cx="310" cy="50" r="18" fill="#1a2236" stroke="#06b6d4" stroke-width="1.5"/><text x="310" y="55" text-anchor="middle" fill="#22d3ee" font-size="11" font-family="Inter">5</text><line x1="48" y1="50" x2="82" y2="50" stroke="#546e7a" stroke-width="1.5"/><line x1="118" y1="50" x2="152" y2="50" stroke="#546e7a" stroke-width="1.5"/><line x1="188" y1="50" x2="222" y2="50" stroke="#546e7a" stroke-width="1.5"/><line x1="258" y1="50" x2="292" y2="50" stroke="#546e7a" stroke-width="1.5"/><path d="M328 50 Q360 50 360 30 Q360 10 240 10 Q170 10 170 32" stroke="#f07178" stroke-width="1.5" fill="none" stroke-dasharray="5"/><text x="280" y="8" fill="#f07178" font-size="9" font-family="Inter">cycle</text><text x="30" y="85" fill="#c3e88d" font-size="8" font-family="Inter">🐢 slow</text><text x="170" y="85" fill="#ffcb6b" font-size="8" font-family="Inter">🐇 fast</text></svg></div>` },
+          { id: "dsa-q8", q: "Implement a Stack", a: `<div class="code-block"><div class="code-header"><span class="code-lang"><span class="code-lang-dot ts"></span>TypeScript</span><button class="code-copy" onclick="copyCode(this)">Copy</button></div><pre><code><span class="kw">class</span> <span class="type">Stack</span>&lt;T&gt; {
+  <span class="kw">private</span> items: T[] = [];
+  <span class="fn">push</span>(item: T) { <span class="kw">this</span>.items.<span class="fn">push</span>(item); }
+  <span class="fn">pop</span>(): T | <span class="kw">undefined</span> { <span class="kw">return</span> <span class="kw">this</span>.items.<span class="fn">pop</span>(); }
+  <span class="fn">peek</span>(): T | <span class="kw">undefined</span> { <span class="kw">return</span> <span class="kw">this</span>.items[<span class="kw">this</span>.items.length - <span class="num">1</span>]; }
+  <span class="fn">isEmpty</span>(): <span class="type">boolean</span> { <span class="kw">return</span> <span class="kw">this</span>.items.length === <span class="num">0</span>; }
+}</code></pre></div>` },
+          { id: "dsa-q9", q: "Implement a Queue", a: `<div class="code-block"><div class="code-header"><span class="code-lang"><span class="code-lang-dot ts"></span>TypeScript</span><button class="code-copy" onclick="copyCode(this)">Copy</button></div><pre><code><span class="kw">class</span> <span class="type">Queue</span>&lt;T&gt; {
+  <span class="kw">private</span> items: T[] = [];
+  <span class="fn">enqueue</span>(item: T) { <span class="kw">this</span>.items.<span class="fn">push</span>(item); }
+  <span class="fn">dequeue</span>(): T | <span class="kw">undefined</span> { <span class="kw">return</span> <span class="kw">this</span>.items.<span class="fn">shift</span>(); }
+  <span class="fn">front</span>(): T | <span class="kw">undefined</span> { <span class="kw">return</span> <span class="kw">this</span>.items[<span class="num">0</span>]; }
+  <span class="fn">isEmpty</span>(): <span class="type">boolean</span> { <span class="kw">return</span> <span class="kw">this</span>.items.length === <span class="num">0</span>; }
+}</code></pre></div>` },
+          { id: "dsa-q10", q: "Valid Parentheses", a: `<div class="code-block"><div class="code-header"><span class="code-lang"><span class="code-lang-dot js"></span>JavaScript — Stack O(n)</span><button class="code-copy" onclick="copyCode(this)">Copy</button></div><pre><code><span class="kw">function</span> <span class="fn">isValid</span>(s) {
+  <span class="kw">const</span> stack = [];
+  <span class="kw">const</span> map = { <span class="str">'('</span>: <span class="str">')'</span>, <span class="str">'['</span>: <span class="str">']'</span>, <span class="str">'{'</span>: <span class="str">'}'</span> };
+  <span class="kw">for</span> (<span class="kw">const</span> char <span class="kw">of</span> s) {
+    <span class="kw">if</span> (map[char]) stack.<span class="fn">push</span>(map[char]);
+    <span class="kw">else if</span> (stack.length === <span class="num">0</span> || stack.<span class="fn">pop</span>() !== char)
+      <span class="kw">return false</span>;
+  }
+  <span class="kw">return</span> stack.length === <span class="num">0</span>;
+}
+<span class="cmt">// "()[]{}\" → true, \"(]\" → false</span></code></pre></div>` }
+        ]
+      },
+      {
+        title: "🌳 Trees, Hash Tables & Sorting",
+        questions: [
+          { id: "dsa-q11", q: "Binary Tree Traversals", a: `<p><strong>Inorder:</strong> Left → Root → Right<br><strong>Preorder:</strong> Root → Left → Right<br><strong>Postorder:</strong> Left → Right → Root</p><div class="code-block"><div class="code-header"><span class="code-lang"><span class="code-lang-dot ts"></span>TypeScript</span><button class="code-copy" onclick="copyCode(this)">Copy</button></div><pre><code><span class="kw">function</span> <span class="fn">inorder</span>(node) {
+  <span class="kw">if</span> (!node) <span class="kw">return</span>;
+  <span class="fn">inorder</span>(node.left);
+  result.<span class="fn">push</span>(node.val);
+  <span class="fn">inorder</span>(node.right);
+}</code></pre></div>` },
+          { id: "dsa-q12", q: "Maximum depth of binary tree", a: `<div class="code-block"><div class="code-header"><span class="code-lang"><span class="code-lang-dot ts"></span>TypeScript — O(n)</span><button class="code-copy" onclick="copyCode(this)">Copy</button></div><pre><code><span class="kw">function</span> <span class="fn">maxDepth</span>(root) {
+  <span class="kw">if</span> (!root) <span class="kw">return</span> <span class="num">0</span>;
+  <span class="kw">return</span> <span class="type">Math</span>.<span class="fn">max</span>(<span class="fn">maxDepth</span>(root.left), <span class="fn">maxDepth</span>(root.right)) + <span class="num">1</span>;
+}</code></pre></div>` },
+          { id: "dsa-q13", q: "BFS Level Order Traversal", a: `<div class="code-block"><div class="code-header"><span class="code-lang"><span class="code-lang-dot ts"></span>TypeScript</span><button class="code-copy" onclick="copyCode(this)">Copy</button></div><pre><code><span class="kw">function</span> <span class="fn">levelOrder</span>(root) {
+  <span class="kw">if</span> (!root) <span class="kw">return</span> [];
+  <span class="kw">const</span> result = [], queue = [root];
+  <span class="kw">while</span> (queue.length) {
+    <span class="kw">const</span> level = [];
+    <span class="kw">for</span> (<span class="kw">let</span> i = queue.length; i &gt; <span class="num">0</span>; i--) {
+      <span class="kw">const</span> node = queue.<span class="fn">shift</span>();
+      level.<span class="fn">push</span>(node.val);
+      <span class="kw">if</span> (node.left) queue.<span class="fn">push</span>(node.left);
+      <span class="kw">if</span> (node.right) queue.<span class="fn">push</span>(node.right);
+    }
+    result.<span class="fn">push</span>(level);
+  }
+  <span class="kw">return</span> result;
+}</code></pre></div>` },
+          { id: "dsa-q14", q: "First missing positive integer", a: `<div class="code-block"><div class="code-header"><span class="code-lang"><span class="code-lang-dot js"></span>JavaScript — O(n) time, O(1) space</span><button class="code-copy" onclick="copyCode(this)">Copy</button></div><pre><code><span class="kw">function</span> <span class="fn">firstMissingPositive</span>(nums) {
+  <span class="kw">const</span> n = nums.length;
+  <span class="cmt">// Use array indices as hash table</span>
+  <span class="kw">for</span> (<span class="kw">let</span> i = <span class="num">0</span>; i &lt; n; i++)
+    <span class="kw">if</span> (nums[i] &lt;= <span class="num">0</span> || nums[i] &gt; n) nums[i] = <span class="num">1</span>;
+  <span class="kw">for</span> (<span class="kw">let</span> i = <span class="num">0</span>; i &lt; n; i++) {
+    <span class="kw">const</span> num = <span class="type">Math</span>.<span class="fn">abs</span>(nums[i]);
+    <span class="kw">if</span> (nums[num - <span class="num">1</span>] &gt; <span class="num">0</span>) nums[num - <span class="num">1</span>] *= -<span class="num">1</span>;
+  }
+  <span class="kw">for</span> (<span class="kw">let</span> i = <span class="num">0</span>; i &lt; n; i++)
+    <span class="kw">if</span> (nums[i] &gt; <span class="num">0</span>) <span class="kw">return</span> i + <span class="num">1</span>;
+  <span class="kw">return</span> n + <span class="num">1</span>;
+}</code></pre></div>` },
+          { id: "dsa-q15", q: "Find duplicates in an array", a: `<div class="code-block"><div class="code-header"><span class="code-lang"><span class="code-lang-dot js"></span>JavaScript — Set O(n)</span><button class="code-copy" onclick="copyCode(this)">Copy</button></div><pre><code><span class="kw">function</span> <span class="fn">findDuplicates</span>(nums) {
+  <span class="kw">const</span> seen = <span class="kw">new</span> <span class="type">Set</span>(), dupes = <span class="kw">new</span> <span class="type">Set</span>();
+  <span class="kw">for</span> (<span class="kw">const</span> num <span class="kw">of</span> nums)
+    seen.<span class="fn">has</span>(num) ? dupes.<span class="fn">add</span>(num) : seen.<span class="fn">add</span>(num);
+  <span class="kw">return</span> [...dupes];
+}</code></pre></div>` },
+          { id: "dsa-q16", q: "Binary Search", a: `<div class="code-block"><div class="code-header"><span class="code-lang"><span class="code-lang-dot js"></span>JavaScript — O(log n)</span><button class="code-copy" onclick="copyCode(this)">Copy</button></div><pre><code><span class="kw">function</span> <span class="fn">binarySearch</span>(nums, target) {
+  <span class="kw">let</span> left = <span class="num">0</span>, right = nums.length - <span class="num">1</span>;
+  <span class="kw">while</span> (left &lt;= right) {
+    <span class="kw">const</span> mid = <span class="type">Math</span>.<span class="fn">floor</span>((left + right) / <span class="num">2</span>);
+    <span class="kw">if</span> (nums[mid] === target) <span class="kw">return</span> mid;
+    <span class="kw">else if</span> (nums[mid] &lt; target) left = mid + <span class="num">1</span>;
+    <span class="kw">else</span> right = mid - <span class="num">1</span>;
+  }
+  <span class="kw">return</span> -<span class="num">1</span>;
+}</code></pre></div>` },
+          { id: "dsa-q17", q: "Merge Sort", a: `<div class="code-block"><div class="code-header"><span class="code-lang"><span class="code-lang-dot js"></span>JavaScript — O(n log n)</span><button class="code-copy" onclick="copyCode(this)">Copy</button></div><pre><code><span class="kw">function</span> <span class="fn">mergeSort</span>(arr) {
+  <span class="kw">if</span> (arr.length &lt;= <span class="num">1</span>) <span class="kw">return</span> arr;
+  <span class="kw">const</span> mid = <span class="type">Math</span>.<span class="fn">floor</span>(arr.length / <span class="num">2</span>);
+  <span class="kw">return</span> <span class="fn">merge</span>(<span class="fn">mergeSort</span>(arr.<span class="fn">slice</span>(<span class="num">0</span>, mid)),
+               <span class="fn">mergeSort</span>(arr.<span class="fn">slice</span>(mid)));
+}</code></pre></div>` },
+          { id: "dsa-q18", q: "Quick Sort", a: `<div class="code-block"><div class="code-header"><span class="code-lang"><span class="code-lang-dot js"></span>JavaScript — O(n log n) avg</span><button class="code-copy" onclick="copyCode(this)">Copy</button></div><pre><code><span class="kw">function</span> <span class="fn">quickSort</span>(arr, left = <span class="num">0</span>, right = arr.length - <span class="num">1</span>) {
+  <span class="kw">if</span> (left &gt;= right) <span class="kw">return</span> arr;
+  <span class="kw">const</span> pi = <span class="fn">partition</span>(arr, left, right);
+  <span class="fn">quickSort</span>(arr, left, pi - <span class="num">1</span>);
+  <span class="fn">quickSort</span>(arr, pi + <span class="num">1</span>, right);
+  <span class="kw">return</span> arr;
+}</code></pre></div>` }
+        ]
+      },
+      {
+        title: "🧠 Algorithms & System Design",
+        questions: [
+          { id: "dsa-q19", q: "Fibonacci Sequence", a: `<div class="code-block"><div class="code-header"><span class="code-lang"><span class="code-lang-dot js"></span>JavaScript</span><button class="code-copy" onclick="copyCode(this)">Copy</button></div><pre><code><span class="cmt">// Memoization O(n)</span>
+<span class="kw">function</span> <span class="fn">fib</span>(n, memo = {}) {
+  <span class="kw">if</span> (n &lt;= <span class="num">1</span>) <span class="kw">return</span> n;
+  <span class="kw">if</span> (memo[n]) <span class="kw">return</span> memo[n];
+  memo[n] = <span class="fn">fib</span>(n-<span class="num">1</span>, memo) + <span class="fn">fib</span>(n-<span class="num">2</span>, memo);
+  <span class="kw">return</span> memo[n];
+}
+
+<span class="cmt">// Iterative O(n), O(1) space</span>
+<span class="kw">function</span> <span class="fn">fib</span>(n) {
+  <span class="kw">let</span> a = <span class="num">0</span>, b = <span class="num">1</span>;
+  <span class="kw">for</span> (<span class="kw">let</span> i = <span class="num">2</span>; i &lt;= n; i++) [a, b] = [b, a + b];
+  <span class="kw">return</span> b;
+}</code></pre></div>` },
+          { id: "dsa-q20", q: "Factorial", a: `<div class="code-block"><div class="code-header"><span class="code-lang"><span class="code-lang-dot js"></span>JavaScript</span><button class="code-copy" onclick="copyCode(this)">Copy</button></div><pre><code><span class="kw">const</span> <span class="fn">factorial</span> = n <span class="op">=&gt;</span> n &lt;= <span class="num">1</span> ? <span class="num">1</span> : n * <span class="fn">factorial</span>(n - <span class="num">1</span>);</code></pre></div>` },
+          { id: "dsa-q21", q: "Climbing Stairs (DP)", a: `<div class="code-block"><div class="code-header"><span class="code-lang"><span class="code-lang-dot js"></span>JavaScript — DP O(n), O(1) space</span><button class="code-copy" onclick="copyCode(this)">Copy</button></div><pre><code><span class="kw">function</span> <span class="fn">climbStairs</span>(n) {
+  <span class="kw">if</span> (n &lt;= <span class="num">2</span>) <span class="kw">return</span> n;
+  <span class="kw">let</span> a = <span class="num">1</span>, b = <span class="num">2</span>;
+  <span class="kw">for</span> (<span class="kw">let</span> i = <span class="num">3</span>; i &lt;= n; i++) [a, b] = [b, a + b];
+  <span class="kw">return</span> b;
+}
+<span class="cmt">// climbStairs(4) → 5</span></code></pre></div>` },
+          { id: "dsa-q22", q: "Coin Change (DP)", a: `<div class="code-block"><div class="code-header"><span class="code-lang"><span class="code-lang-dot js"></span>JavaScript — DP O(amount × coins)</span><button class="code-copy" onclick="copyCode(this)">Copy</button></div><pre><code><span class="kw">function</span> <span class="fn">coinChange</span>(coins, amount) {
+  <span class="kw">const</span> dp = <span class="kw">new</span> <span class="type">Array</span>(amount + <span class="num">1</span>).<span class="fn">fill</span>(<span class="num">Infinity</span>);
+  dp[<span class="num">0</span>] = <span class="num">0</span>;
+  <span class="kw">for</span> (<span class="kw">let</span> i = <span class="num">1</span>; i &lt;= amount; i++)
+    <span class="kw">for</span> (<span class="kw">const</span> coin <span class="kw">of</span> coins)
+      <span class="kw">if</span> (coin &lt;= i) dp[i] = <span class="type">Math</span>.<span class="fn">min</span>(dp[i], dp[i - coin] + <span class="num">1</span>);
+  <span class="kw">return</span> dp[amount] === <span class="num">Infinity</span> ? -<span class="num">1</span> : dp[amount];
+}</code></pre></div>` },
+          { id: "dsa-q23", q: "Design a real-time dashboard", a: `<p><strong>Frontend (Angular):</strong> Components + NgRx Store + WebSockets/Polling + OnPush CD + Virtual Scrolling</p><p><strong>Backend (Node.js):</strong> REST for initial data + WebSocket for real-time updates + Redis caching</p><p><strong>Database:</strong> Time-series DB (InfluxDB) for metrics, PostgreSQL for relational data</p><p><strong>Scaling:</strong> Load balancers, horizontal scaling, CDN for static assets</p>` },
+          { id: "dsa-q24", q: "Design a search autocomplete feature", a: `<p><strong>Frontend:</strong> Debounce input (300ms) + min 3 chars + <code>switchMap</code> for cancellation</p><div class="code-block"><div class="code-header"><span class="code-lang"><span class="code-lang-dot ts"></span>TypeScript — RxJS</span><button class="code-copy" onclick="copyCode(this)">Copy</button></div><pre><code>suggestions$ = <span class="kw">this</span>.searchControl.valueChanges.<span class="fn">pipe</span>(
+  <span class="fn">debounceTime</span>(<span class="num">300</span>),
+  <span class="fn">distinctUntilChanged</span>(),
+  <span class="fn">filter</span>(q <span class="op">=&gt;</span> q.length &gt;= <span class="num">3</span>),
+  <span class="fn">switchMap</span>(q <span class="op">=&gt;</span> <span class="kw">this</span>.searchService.<span class="fn">getSuggestions</span>(q))
+);</code></pre></div><p><strong>Backend:</strong> Elasticsearch or Trie for fast lookup + caching popular queries</p>` },
+          { id: "dsa-q25", q: "Optimize a slow Angular app", a: `<ol><li><strong>Reduce bundle</strong> – Lazy loading, tree shaking, code splitting</li><li><strong>Improve rendering</strong> – OnPush CD, trackBy, virtual scrolling, AOT</li><li><strong>Optimize data</strong> – SSR, caching, pagination, debounce</li><li><strong>Optimize images</strong> – Compress, lazy load, WebP format</li><li><strong>Server-side</strong> – CDN, Gzip/Brotli, HTTP caching</li></ol><div class="table-wrapper"><table><tr><th>Algorithm</th><th>Time</th><th>Space</th></tr><tr><td>Binary Search</td><td>O(log n)</td><td>O(1)</td></tr><tr><td>Merge Sort</td><td>O(n log n)</td><td>O(n)</td></tr><tr><td>Quick Sort</td><td>O(n log n) avg</td><td>O(log n)</td></tr><tr><td>BFS/DFS</td><td>O(n)</td><td>O(n)/O(h)</td></tr></table></div>` }
+        ]
+      }
+    ]
+  },
+
+  // ========== HR ==========
+  {
+    id: "hr",
+    icon: "👤",
+    title: "HR & Personal Questions",
+    subtitle: "Introduction, Experience & Culture Fit",
+    meta: "19 Questions · Personal, Experience & Company Fit",
+    sections: [
+      {
+        title: "📌 Introduction & Personal",
+        questions: [
+          { id: "hr-q1", q: "Tell me about yourself.", a: `<p>"I'm Tanay Khobragade, a Full-Stack Developer with 4+ years of experience specializing in Angular and Node.js. Currently at Accenture, I've built scalable frontend applications using NgRx for state management and developed REST/OData APIs with PostgreSQL backends.</p><p>One of my key achievements was building a serverless automation pipeline using AWS Step Functions and Lambda, which reduced manual processing time by <strong>80-90%</strong>. I also improved Node.js test coverage from <strong>20% to 85%</strong>.</p><p>I'm excited about this opportunity at Deloitte to work on digital transformation projects and contribute to the DFO&I team."</p><div class="tip-block">⏱️ Keep it under 90 seconds. Highlight quantifiable achievements.</div>` },
+          { id: "hr-q2", q: "Why Deloitte?", a: `<p>"Deloitte's purpose of <strong>'making an impact that matters'</strong> aligns with my career goals. I'm drawn to:</p><ul><li>Diverse, enterprise-level digital transformation projects</li><li>Culture of continuous learning and innovation (GenAI)</li><li>Cross-functional collaboration opportunities</li><li>Reputation for delivering measurable outcomes"</li></ul>` },
+          { id: "hr-q3", q: "Why are you leaving Accenture?", a: `<p>"I've greatly valued my time at Accenture. However, I'm looking for new challenges and growth opportunities. Deloitte's DFO&I team's end-to-end approach to building digital products presents an exciting next step."</p><div class="tip-block">✅ Always be positive about current employer. Focus on growth.</div>` },
+          { id: "hr-q4", q: "What are your strengths?", a: `<p><strong>Technical:</strong> Full-stack (Angular, Node.js, .NET Core), problem-solving (80-90% automation), quick learner (AWS, NgRx)</p><p><strong>Soft Skills:</strong> Team collaboration, communication, mentoring juniors</p><p><strong>Delivery:</strong> Quality focus (85% test coverage), meeting deadlines, ownership</p>` },
+          { id: "hr-q5", q: "What are your weaknesses?", a: `<p><strong>Option 1:</strong> "I sometimes get too deep into technical details. I'm actively working on balancing depth with delivery timelines."</p><p><strong>Option 2:</strong> "Early in my career, I was less confident with public speaking. I've improved through presentations and demos."</p><div class="note-block">⚠️ Never say "I'm a perfectionist" or "I work too hard"</div>` },
+          { id: "hr-q6", q: "Where do you see yourself in 5 years?", a: `<p>"I see myself growing into a technical leadership role where I can architect scalable solutions, mentor developers, and contribute to strategic technology decisions. I'm interested in deepening my expertise in cloud-native development and AI-assisted tools."</p>` },
+          { id: "hr-q7", q: "What are your salary expectations?", a: `<p>"Based on my experience as a Full-Stack Developer with 4+ years, I'm looking at <strong>₹12-18 LPA</strong>. I'm open to discussing the full compensation package."</p>` },
+          { id: "hr-q8", q: "What motivates you?", a: `<ul><li><strong>Solving complex problems</strong> – Like the 80-90% automation pipeline</li><li><strong>Seeing impact</strong> – Dynamic Targets used across multiple teams</li><li><strong>Continuous learning</strong> – Recently mastered AWS Step Functions, NgRx</li><li><strong>Team success</strong> – Mentoring juniors and collaborating on shared goals</li></ul>` },
+          { id: "hr-q9", q: "How do you handle stress/pressure?", a: `<p>"I handle pressure by: prioritizing tasks, staying organized (Jira/Trello), communicating early about delays, taking short breaks for focus, and focusing on solutions."</p><p><strong>Example:</strong> During Dynamic Targets go-live, I organized daily standups, prioritized critical path items → delivered on time.</p>` },
+          { id: "hr-q10", q: "Describe your work style.", a: `<ul><li><strong>Collaborative</strong> – Best solutions come from teamwork</li><li><strong>Detail-oriented</strong> – Evidenced by 85% test coverage</li><li><strong>Proactive</strong> – Take ownership without being told</li><li><strong>Adaptable</strong> – Comfortable with changing requirements</li><li><strong>Results-driven</strong> – Focus on delivering value</li></ul>` }
+        ]
+      },
+      {
+        title: "💼 Experience & Culture Fit",
+        questions: [
+          { id: "hr-q11", q: "What was your role at Accenture?", a: `<ul><li>Developed Angular features in Nx monorepo with reusable components</li><li>Designed REST/OData APIs with PostgreSQL, consumed by 3+ apps</li><li>Built serverless automation using AWS (Step Functions, Lambda, S3, SQS)</li><li>Improved Node.js test coverage from 20% to 85%</li><li>Created SDD agent for AI-assisted development</li></ul>` },
+          { id: "hr-q12", q: "What was your biggest achievement?", a: `<p><strong>Serverless automation pipeline</strong> using AWS Step Functions, Lambda, S3, SNS:</p><ul><li>Reduced manual processing by <strong>80-90%</strong></li><li>Eliminated human errors</li><li>Adopted across multiple teams</li><li>Earned <strong>Dynamic Targets Go-Live Recognition 2026</strong></li></ul>` },
+          { id: "hr-q13", q: "Describe a challenge you overcame.", a: `<p><strong>Challenge:</strong> Low test coverage (20%) and vulnerabilities</p><p><strong>Solution:</strong> Analyzed codebase, built Jest test suites, Playwright integration tests, addressed SAST/SCA/DAST findings</p><p><strong>Result:</strong> Coverage improved to <strong>85%</strong>, significantly reduced production issues</p>` },
+          { id: "hr-q14", q: "How do you handle feedback?", a: `<p>"I actively seek feedback. When I receive it: I <strong>listen</strong> without being defensive, <strong>ask clarifying questions</strong>, <strong>create an action plan</strong>, and <strong>follow up</strong> to show progress."</p>` },
+          { id: "hr-q15", q: "How do you stay updated with technology?", a: `<ul><li>Online courses (Udemy, Pluralsight)</li><li>Technical blogs (Dev.to, Medium)</li><li>GitHub – following key repos</li><li>Conferences/webinars (Angular Connect, AWS re:Invent)</li><li>Hands-on practice – building projects like SDD agent</li><li>Peer learning – knowledge-sharing sessions</li></ul>` },
+          { id: "hr-q16", q: "What do you know about Deloitte?", a: `<ul><li><strong>Purpose:</strong> "To make an impact that matters"</li><li><strong>DFO&I:</strong> Digital Foundry Operate & Innovations – builds end-to-end digital products</li><li><strong>Services:</strong> Consulting, audit, tax, advisory, digital transformation</li><li><strong>Culture:</strong> Inclusive, integrity, client focus, collaboration</li><li><strong>Innovation:</strong> Strong focus on GenAI, cloud, emerging tech</li></ul>` },
+          { id: "hr-q17", q: "How do you align with Deloitte's values?", a: `<ul><li><strong>Integrity:</strong> Transparent about capabilities and timelines</li><li><strong>Client Focus:</strong> Solutions addressing real business problems (3+ apps)</li><li><strong>Impact:</strong> 80-90% processing time saved</li><li><strong>Collaboration:</strong> Cross-team coordination for Dynamic Targets go-live</li></ul>` },
+          { id: "hr-q18", q: "Why should we hire you?", a: `<ul class="checklist"><li><strong>Relevant experience</strong> – 4+ years Angular, Node.js, AWS</li><li><strong>Proven impact</strong> – 80-90% automation, 85% test coverage</li><li><strong>Full-stack expertise</strong> – NgRx to PostgreSQL APIs</li><li><strong>Cloud-native</strong> – AWS serverless, Step Functions</li><li><strong>Quality focus</strong> – SAST/SCA/DAST compliance</li><li><strong>Team player</strong> – Cross-team coordination, mentoring</li><li><strong>Cultural fit</strong> – Values aligned with Deloitte</li></ul>` },
+          { id: "hr-q19", q: "Questions for the interviewer?", a: `<p><strong>About the Role:</strong></p><ul><li>"What key challenges does the DFO&I team currently face?"</li><li>"What does success look like in 6 months?"</li></ul><p><strong>About Growth:</strong></p><ul><li>"What professional development opportunities exist?"</li><li>"How does Deloitte support learning GenAI?"</li></ul><p><strong>About Culture:</strong></p><ul><li>"How would you describe the team culture?"</li><li>"How does the team approach innovation?"</li></ul>` }
+        ]
+      }
+    ]
+  },
+
+  // ========== MANAGERIAL ==========
+  {
+    id: "mgr",
+    icon: "👔",
+    title: "Managerial Questions",
+    subtitle: "Project Management, Teamwork, Problem Solving & Process",
+    meta: "20 Questions · STAR Method Answers",
+    sections: [
+      {
+        title: "📌 Project Management",
+        questions: [
+          { id: "mgr-q1", q: "Describe a project where you coordinated with multiple teams.", a: `<p><strong>STAR Method:</strong></p><ul><li><strong>S:</strong> Dynamic Targets delivery across MMP DCTA and Phoenix teams</li><li><strong>T:</strong> Coordinate pricing/solutioning for go-live</li><li><strong>A:</strong> Organized cross-team meetings, created shared tracking, identified risks early, facilitated communication</li><li><strong>R:</strong> Successful production deployment → <strong>Dynamic Targets Go-Live Recognition 2026</strong></li></ul>` },
+          { id: "mgr-q2", q: "How do you handle conflicting priorities?", a: `<ol><li><strong>Understand business impact</strong> – Ask stakeholders about value and urgency</li><li><strong>Create visibility</strong> – Document all requests with deadlines</li><li><strong>Prioritize objectively</strong> – Business value, effort, dependencies</li><li><strong>Communicate trade-offs</strong> – What gets delayed</li><li><strong>Escalate when needed</strong> – Involve manager with clear options</li></ol><p><strong>Example:</strong> Business wanted feature fast, security needed vulnerability fix. Presented options → did security patch first, then feature.</p>` },
+          { id: "mgr-q3", q: "How do you estimate tasks?", a: `<ol><li>Break into subtasks</li><li>Consider complexity and dependencies</li><li>Use historical data</li><li>Add 20-30% buffer</li><li>Consult the team</li></ol><p><strong>Example (Serverless Pipeline):</strong> AWS setup (2d) + Step Functions (3d) + Lambda (5d) + Testing (3d) + Buffer (2d) = ~15 days (actual: 14 days)</p>` },
+          { id: "mgr-q4", q: "How do you handle changing requirements?", a: `<ol><li><strong>Assess impact</strong> on timeline, scope, dependencies</li><li><strong>Reprioritize</strong> backlog</li><li><strong>Communicate</strong> impact to stakeholders</li><li><strong>Document</strong> changes</li><li><strong>Stay flexible</strong> without compromising quality</li></ol>` },
+          { id: "mgr-q5", q: "How do you ensure quality in deliverables?", a: `<ol><li>Code reviews – thorough, constructive</li><li>Automated testing – unit, integration, E2E (85% coverage)</li><li>Manual testing – exploratory before deployment</li><li>Static analysis – SAST/SCA/DAST tools</li><li>Checklists – deployment checklists</li><li>Peer validation before submission</li></ol>` }
+        ]
+      },
+      {
+        title: "👥 Teamwork & Collaboration",
+        questions: [
+          { id: "mgr-q6", q: "How do you handle disagreements with team members?", a: `<ol><li>Focus on the <strong>problem, not the person</strong></li><li><strong>Listen actively</strong> to understand their perspective</li><li><strong>Present data</strong>, not opinions</li><li><strong>Find common ground</strong></li><li><strong>Escalate if needed</strong></li></ol><p><strong>Example:</strong> Teammate wanted new library vs proven solution. We spiked both → agreed on new library after seeing performance benefits.</p>` },
+          { id: "mgr-q7", q: "Describe mentoring a junior team member.", a: `<p><strong>STAR:</strong></p><ul><li><strong>S:</strong> Junior developer struggling with Angular</li><li><strong>T:</strong> Help them get up to speed</li><li><strong>A:</strong> 1:1 sessions, learning roadmap, pair programming, constructive code feedback</li><li><strong>R:</strong> Within 2 months, independently handling tasks and reviewing others' code</li></ul>` },
+          { id: "mgr-q8", q: "How do you handle a difficult team member?", a: `<ol><li>Don't take it personally</li><li>Understand their perspective (hidden stressors?)</li><li>Set clear expectations</li><li>Document interactions</li><li>Involve management if affecting work</li></ol>` },
+          { id: "mgr-q9", q: "How do you ensure knowledge sharing?", a: `<ul><li>Detailed code reviews with explanations</li><li>Documentation of processes and decisions</li><li>Brown bag / lunch-and-learn sessions</li><li>Pair programming on complex problems</li><li>Shared team wiki with useful resources</li></ul><p><strong>Example:</strong> After building SDD agent, conducted a session on MCP, Mermaid, and agent architecture.</p>` },
+          { id: "mgr-q10", q: "How do you work with remote teams?", a: `<ul><li>Over-communicate with more context</li><li>Right tools – Slack, Teams/Zoom, Jira</li><li>Clear expectations documented</li><li>Maintain overlap hours, respond promptly</li><li>Build relationships through 1:1s and virtual coffee</li><li>Respect time zones</li></ul><p><strong>Example:</strong> US-based team on General Mills migration. 9:30 PM IST standup, documented everything in Confluence.</p>` }
+        ]
+      },
+      {
+        title: "🎯 Problem Solving & Decisions",
+        questions: [
+          { id: "mgr-q11", q: "Describe a technical challenge you solved.", a: `<p><strong>Serverless Automation (STAR):</strong></p><ul><li><strong>S:</strong> Manual workflows taking hours, error-prone</li><li><strong>T:</strong> Automate end-to-end pipeline</li><li><strong>A:</strong> Step Functions orchestration, Lambda functions, S3/SQS/SNS, CloudWatch monitoring, error handling + retries</li><li><strong>R:</strong> <strong>80-90%</strong> processing time reduction, eliminated manual errors</li></ul>` },
+          { id: "mgr-q12", q: "How do you approach an unfamiliar problem?", a: `<ol><li><strong>Break it down</strong> into smaller parts</li><li><strong>Research</strong> similar solutions and docs</li><li><strong>Prototype</strong> a proof-of-concept</li><li><strong>Validate</strong> with peers/mentors</li><li><strong>Iterate</strong> based on feedback</li><li><strong>Document</strong> learnings</li></ol><p><strong>Example:</strong> First time with AWS Step Functions → spent a day on docs, built "Hello World" workflow before tackling full pipeline.</p>` },
+          { id: "mgr-q13", q: "How do you make technical decisions?", a: `<p>I consider: <strong>Business requirements</strong>, <strong>maintainability</strong>, <strong>scalability</strong>, <strong>performance</strong>, <strong>team skills</strong>, <strong>cost</strong>, and <strong>risk</strong>.</p><p><strong>Example:</strong> Lambda vs EC2 → Chose Lambda for pay-per-use cost, auto-scaling, zero server maintenance.</p>` },
+          { id: "mgr-q14", q: "How do you handle tight deadlines?", a: `<ol><li>Prioritize ruthlessly – must-haves only</li><li>Detailed plan with daily milestones</li><li>Flag unrealistic deadlines immediately</li><li>Minimize distractions</li><li>Delegate where possible</li><li>Maintain quality – no shortcuts causing tech debt</li></ol>` },
+          { id: "mgr-q15", q: "How do you handle failure or mistakes?", a: `<ol><li><strong>Acknowledge quickly</strong> – no hiding or excuses</li><li><strong>Root cause analysis</strong></li><li><strong>Fix immediately</strong></li><li><strong>Prevent recurrence</strong> – add safeguards</li><li><strong>Learn and share</strong> with team</li></ol><p><strong>Example:</strong> Deployed change causing outage → rolled back, identified missing test case, added test + pre-deployment checklist.</p>` }
+        ]
+      },
+      {
+        title: "📊 Process & Methodology",
+        questions: [
+          { id: "mgr-q16", q: "How familiar are you with Agile?", a: `<p>4+ years Agile/Scrum at Accenture: daily standups, sprint planning, reviews, retrospectives, Kanban for maintenance.</p><p>2-week sprints, 2-3 stories each, daily Jira updates. Velocity consistently improved.</p>` },
+          { id: "mgr-q17", q: "How do you conduct code reviews?", a: `<p>I check for: <strong>Functionality</strong> (requirements, logic, edge cases), <strong>Quality</strong> (clean, tested, no code smells), <strong>Maintainability</strong> (documented, clear names), <strong>Performance</strong>, <strong>Security</strong>.</p><p>I provide <strong>constructive, specific feedback</strong>, praise good practices, and am open to discussion.</p>` },
+          { id: "mgr-q18", q: "How do you document your work?", a: `<ul><li><strong>Code Level:</strong> Self-documenting code, comments for complex logic, READMEs</li><li><strong>Project Level:</strong> Architecture diagrams (Mermaid), API docs (Swagger), data flow diagrams</li><li><strong>Process Level:</strong> Meeting notes, decision logs, runbooks</li></ul>` },
+          { id: "mgr-q19", q: "How do you stay organized?", a: `<ul><li>Jira for work tasks, Trello for personal</li><li>OneNote for meeting notes and research</li><li>Calendar blocking for focused work</li><li>Eisenhower Matrix (urgent/important) for prioritization</li><li>Weekly planning every Monday</li></ul>` },
+          { id: "mgr-q20", q: "How do you give feedback to peers?", a: `<p>I use the <strong>SBI model</strong>: Situation → Behavior → Impact</p><p><strong>Positive:</strong> "During Dynamic Targets (S), you created the deployment checklist (B), which ensured smooth deployment (I)."</p><p><strong>Constructive:</strong> "In yesterday's code review (S), the PR was approved without checking test coverage (B), which could lead to untested code in production (I)."</p><div class="tip-block">💡 Be specific, timely, focused on behavior, and deliver constructive feedback in private.</div>` }
+        ]
+      }
+    ]
+  }
+];
+
+// ===== RENDER =====
+function renderAll() {
+  const main = document.getElementById('mainContent');
+  let html = '';
+
+  topics.forEach(topic => {
+    html += `<section class="topic-section" data-topic="${topic.id}" id="section-${topic.id}">`;
+    html += `<div class="topic-header"><div class="topic-icon">${topic.icon}</div><div><h1 class="topic-title">${topic.title}</h1><div class="topic-subtitle">${topic.subtitle}</div></div></div>`;
+    html += `<div class="topic-meta">${topic.meta}</div>`;
+
+    topic.sections.forEach(section => {
+      html += `<h2 class="sub-section-title">${section.title}</h2>`;
+      section.questions.forEach((qa, idx) => {
+        const num = qa.id.split('-q')[1] || (idx + 1);
+        html += `<div class="qa-card" id="${qa.id}" data-question="${qa.q.toLowerCase()}">`;
+        html += `<div class="qa-question" onclick="toggleQA(this)">`;
+        html += `<span class="qa-number">Q${num}</span>`;
+        html += `<span class="qa-text">${qa.q}</span>`;
+        html += `<span class="qa-toggle">▼</span>`;
+        html += `</div>`;
+        html += `<div class="qa-answer"><div class="qa-answer-content">${qa.a}</div></div>`;
+        html += `</div>`;
+      });
+    });
+
+    html += `</section>`;
+  });
+
+  main.innerHTML = html;
+}
+
+// ===== INTERACTIONS =====
+function toggleQA(el) {
+  const card = el.closest('.qa-card');
+  card.classList.toggle('open');
+}
+
+function toggleAllAnswers(show) {
+  document.querySelectorAll('.qa-card').forEach(card => {
+    if (show) card.classList.add('open');
+    else card.classList.remove('open');
+  });
+}
+
+function toggleTocSection(header) {
+  const isActive = header.classList.contains('active');
+  header.classList.toggle('active');
+  const items = header.nextElementSibling;
+  items.classList.toggle('open');
+}
+
+function toggleSidebar() {
+  document.getElementById('sidebar').classList.toggle('collapsed');
+}
+
+// ===== SEARCH =====
+function handleSearch(query) {
+  const q = query.toLowerCase().trim();
+  document.querySelectorAll('.qa-card').forEach(card => {
+    const text = card.getAttribute('data-question') + ' ' + card.querySelector('.qa-answer-content').textContent.toLowerCase();
+    if (q === '' || text.includes(q)) {
+      card.classList.remove('search-hidden');
+    } else {
+      card.classList.add('search-hidden');
+    }
+  });
+}
+
+// ===== COPY CODE =====
+function copyCode(btn) {
+  const code = btn.closest('.code-block').querySelector('pre').textContent;
+  navigator.clipboard.writeText(code).then(() => {
+    btn.textContent = '✓ Copied!';
+    btn.classList.add('copied');
+    setTimeout(() => {
+      btn.textContent = 'Copy';
+      btn.classList.remove('copied');
+    }, 2000);
+  });
+}
+
+// ===== PROGRESS BAR =====
+window.addEventListener('scroll', () => {
+  const scrollTop = window.scrollY;
+  const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+  const progress = (scrollTop / docHeight) * 100;
+  document.getElementById('progressBar').style.width = progress + '%';
+});
+
+// ===== SMOOTH SCROLL for TOC links =====
+document.addEventListener('click', (e) => {
+  if (e.target.classList.contains('toc-item')) {
+    e.preventDefault();
+    const targetId = e.target.getAttribute('href').substring(1);
+    const targetEl = document.getElementById(targetId);
+    if (targetEl) {
+      targetEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      // Auto-open the answer
+      const card = targetEl.closest('.qa-card') || targetEl;
+      card.classList.add('open');
+      // Flash effect
+      card.style.boxShadow = '0 0 0 2px rgba(99, 102, 241, 0.5)';
+      setTimeout(() => card.style.boxShadow = '', 1500);
+    }
+    // Close sidebar on mobile
+    if (window.innerWidth <= 1024) {
+      document.getElementById('sidebar').classList.add('collapsed');
+    }
+  }
+});
+
+// ===== INIT =====
+if (window.innerWidth <= 1024) {
+  document.getElementById('sidebar').classList.add('collapsed');
+}
+renderAll();
+</script>
+</body>
+</html>
