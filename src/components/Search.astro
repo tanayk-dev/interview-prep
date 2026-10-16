@@ -1,0 +1,17 @@
+---
+import { url } from '../lib/topics';
+---
+
+<dialog class="search" id="search" data-index={url('search.json')} data-base={url()}>
+  <div class="search-box">
+    <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7" /><path d="m20 20-3.5-3.5" /></svg>
+    <input type="search" placeholder="Search all questions… e.g. cors, closure, index" autocomplete="off" spellcheck="false" />
+    <kbd>Esc</kbd>
+  </div>
+  <ul class="search-results" role="listbox"></ul>
+  <p class="search-hint">↑ ↓ to move · Enter to open · type <b>⭐</b> or <b>🔥</b> to list flagged questions</p>
+</dialog>
+
+<script>
+  import '../scripts/search';
+</script>

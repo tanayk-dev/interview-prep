@@ -1,0 +1,114 @@
+---
+import Base from '../layouts/Base.astro';
+import { getTopics, url } from '../lib/topics';
+import { SITE, PLAN } from '../site.config';
+
+const topics = await getTopics();
+const total = topics.reduce((n, t) => n + t.questions.length, 0);
+const gaps = topics.flatMap((t) => t.questions.filter((q) => q.gap).map((q) => ({ ...q, topic: t })));
+const { target } = SITE;
+---
+
+<Base>
+  <main class="page home">
+    <section class="hero">
+      {
+        target.date && (
+          <div class="countdown" data-countdown={target.date}>
+            <span class="cd-label">{target.company} · {target.round}</span>
+            <span class="cd-time" data-countdown-text>
+              {new Date(target.date).toLocaleString('en-IN', { weekday: 'short', day: 'numeric', month: 'short', hour: 'numeric', minute: '2-digit', timeZone: 'Asia/Kolkata' })}
+            </span>
+          </div>
+        )
+      }
+      <h1>Hi {SITE.owner}, let's get you ready.</h1>
+      <p class="hero-sub">
+        {total} questions across {topics.length} topics, each answered in plain language with an example, and a diagram where it helps.
+        Read the question, <b>answer out loud</b>, then open the card to check yourself.
+      </p>
+      <div class="hero-progress">
+        <div class="bar"><span data-overall-bar></span></div>
+        <span data-overall-label data-total={total}>0 / {total} revised</span>
+      </div>
+    </section>
+
+    <section class="block">
+      <h2 class="block-title">Topics</h2>
+      <div class="topic-grid">
+        {
+          topics.map((t) => (
+            <a href={url(`${t.id}/`)} class="topic-card" style={`--c: var(--ctp-${t.data.color})`} data-topic={t.id} data-total={t.questions.length}>
+              <span class="tc-icon">{t.data.icon}</span>
+              <span class="tc-title">{t.data.title}</span>
+              <span class="tc-desc">{t.data.description}</span>
+              <span class="tc-meta">
+                <span>{t.questions.length} Q&amp;As</span>
+                {t.questions.some((q) => q.star) && <span>⭐ {t.questions.filter((q) => q.star).length}</span>}
+                {t.questions.some((q) => q.gap) && <span>🔥 {t.questions.filter((q) => q.gap).length}</span>}
+                <span class="tc-done" data-progress-label />
+              </span>
+              <span class="tc-bar"><span data-progress-bar /></span>
+            </a>
+          ))
+        }
+      </div>
+    </section>
+
+    <div class="home-cols">
+      <section class="block" id="round-1-gaps">
+        <h2 class="block-title">🔥 Fix these first: round 1 gaps</h2>
+        <p class="block-sub">The questions you found hard on 10 Oct. Expect them to come back in a deeper form.</p>
+        <ul class="gap-list">
+          {
+            gaps.map((q) => (
+              <li style={`--c: var(--ctp-${q.topic.data.color})`} data-q-ref={`${q.topic.id}#${q.id}`}>
+                <a href={url(`${q.topic.id}/#${q.id}`)}>
+                  <span class="gl-check" aria-hidden="true" />
+                  <span class="gl-title">{q.title}</span>
+                  <span class="gl-topic">{q.topic.data.short}</span>
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </section>
+
+      <section class="block">
+        <h2 class="block-title">🌙 Night-before plan (≈4 hrs)</h2>
+        <p class="block-sub">Tick as you go. Stored on this device only.</p>
+        <ul class="plan">
+          {
+            PLAN.map((p, i) => (
+              <li>
+                <label>
+                  <input type="checkbox" data-plan={i} />
+                  <span class="plan-time">{p.time}</span>
+                  <span class="plan-task">
+                    {p.link ? <a href={url(p.link)}>{p.task}</a> : p.task}
+                  </span>
+                </label>
+              </li>
+            ))
+          }
+        </ul>
+        <div class="callout" data-callout="tip">
+          <div class="callout-title"><span class="callout-icon" aria-hidden="true"></span><span class="callout-title-text">Morning of the interview</span></div>
+          <div class="callout-content">
+            <p>Skim only the <b>💡 hacks</b> and the 🔥 cards. Carry a government photo ID (not Aadhaar), 2–3 printed resumes, a pen. Reach 30 minutes early.</p>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <section class="block legend">
+      <h2 class="block-title">Legend</h2>
+      <ul>
+        <li><b>⭐</b> reported by real Infosys candidates (Glassdoor, Naukri Code360)</li>
+        <li><b>🔥</b> a question you struggled with in round 1</li>
+        <li><b>💡</b> a memory hack · <b>🧑‍💻</b> link it to your Accenture work</li>
+        <li><b>✓</b> tick the circle on a card once you can answer it without looking</li>
+      </ul>
+    </section>
+  </main>
+</Base>

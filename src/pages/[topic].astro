@@ -1,0 +1,75 @@
+---
+import Base from '../layouts/Base.astro';
+import { render } from 'astro:content';
+import { getTopics, url } from '../lib/topics';
+
+export async function getStaticPaths() {
+  const topics = await getTopics();
+  return topics.map((topic, i) => ({
+    params: { topic: topic.id },
+    props: { topic, prev: topics[i - 1], next: topics[i + 1] },
+  }));
+}
+
+const { topic, prev, next } = Astro.props;
+const { Content, headings } = await render(topic);
+const sections = headings
+  .filter((h) => h.depth === 2)
+  .map((h) => ({ ...h, count: topic.questions.filter((q) => q.section === h.text).length }));
+const qs = topic.questions;
+const stars = qs.filter((q) => q.star).length;
+const gaps = qs.filter((q) => q.gap).length;
+---
+
+<Base title={topic.data.title} description={topic.data.description} current={topic.id} crumbs={[topic.data.short]}>
+  <main class="page" style={`--c: var(--ctp-${topic.data.color})`}>
+    <div class="page-grid">
+      <article class="note">
+        <header class="note-head">
+          <div class="note-icon">{topic.data.icon}</div>
+          <h1>{topic.data.title}</h1>
+          <p class="note-desc">{topic.data.description}</p>
+          <div class="note-stats">
+            <span class="pill">{qs.length} questions</span>
+            {stars > 0 && <button class="pill pill-star" data-filter-shortcut="star">⭐ {stars} asked at Infosys</button>}
+            {gaps > 0 && <button class="pill pill-gap" data-filter-shortcut="gap">🔥 {gaps} round-1 gaps</button>}
+            <span class="pill pill-progress" data-topic-progress={topic.id} data-total={qs.length}>0 / {qs.length} revised</span>
+          </div>
+        </header>
+
+        <div class="toolbar" role="toolbar" aria-label="Question controls">
+          <div class="chips" role="radiogroup" aria-label="Filter">
+            <button class="chip active" data-filter="all">All</button>
+            {stars > 0 && <button class="chip" data-filter="star">⭐ Infosys</button>}
+            {gaps > 0 && <button class="chip" data-filter="gap">🔥 Gaps</button>}
+            <button class="chip" data-filter="todo">Not revised</button>
+          </div>
+          <div class="tools">
+            <button class="tool" data-expand-all title="Expand all answers">Expand all</button>
+            <button class="tool" data-collapse-all title="Collapse all answers">Collapse</button>
+            <button class="tool" data-random title="Open a random question you haven't revised">🎲 Random</button>
+          </div>
+        </div>
+        <p class="filter-empty" hidden>Nothing left in this filter. Nice work.</p>
+
+        <div class="prose" data-topic={topic.id}>
+          <Content />
+        </div>
+
+        <nav class="pager">
+          {prev ? <a href={url(`${prev.id}/`)} class="pager-link"><small>← Previous</small>{prev.data.icon} {prev.data.short}</a> : <span />}
+          {next ? <a href={url(`${next.id}/`)} class="pager-link next"><small>Next →</small>{next.data.icon} {next.data.short}</a> : <span />}
+        </nav>
+      </article>
+
+      <aside class="outline" aria-label="On this page">
+        <div class="outline-title">On this page</div>
+        <ul>
+          {sections.map((s) => (
+            <li><a href={`#${s.slug}`}>{s.text}{s.count > 0 && <span>{s.count}</span>}</a></li>
+          ))}
+        </ul>
+      </aside>
+    </div>
+  </main>
+</Base>
