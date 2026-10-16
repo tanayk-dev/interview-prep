@@ -1257,9 +1257,6 @@ details.callout:not([open]) > .callout-title {
   .toolbar {
     top: 56px;
   }
-  .tools .tool[data-collapse-all] {
-    display: none;
-  }
   .callout[data-callout='question'] .callout-content {
     padding: 0 12px 12px;
   }
