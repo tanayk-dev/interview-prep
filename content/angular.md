@@ -52,15 +52,22 @@ color: red
 > **In simple words:** **components** (what you see), **templates**, **services** (shared logic and data via DI), **directives** (change the DOM), **pipes** (format data), **routing** (which screen), and **standalone imports** or NgModules (what's available where).
 >
 > **Diagram:**
-> ```mermaid
-> flowchart TD
->   APP["Angular app"] --> R["Router<br/>which screen"]
->   R --> C["Component<br/>class + template"]
->   C --> D["Directives<br/>change DOM"]
->   C --> P["Pipes<br/>format data"]
->   C -- "injects" --> S["Service<br/>logic + HTTP"]
->   S --> API[("Backend API")]
-> ```
+>
+> ![Angular architecture: router → component (class + template) ← directives, pipes and DI services](diagrams/angular-architecture.svg)
+>
+> **How to walk an interviewer through it (bottom → top):**
+> 1. The **browser URL** hits the **Router**, which matches a route and renders that component into `<router-outlet>`.
+> 2. The **component** = class (data + methods) + **metadata** from `@Component` + a **template**.
+> 3. **Property binding** sends data down to the template (`[value]`, `{{ }}`); **event binding** sends user actions back up (`(click)`). Both together = two-way `[(ngModel)]`.
+> 4. The template uses **directives** (change the DOM: `@if`, `ngClass`) and **pipes** (format: `date`, `currency`).
+> 5. The component asks the **injector** for **services**; services call **APIs through `HttpClient`**.
+> 6. **NgModules** used to group all of this; now standalone components import what they need.
+>
+> > [!warning] Common mistakes in architecture diagrams found online
+> > - "Services are singletons **by default**": only when `providedIn: 'root'`. Provided in a component's `providers`, each component gets its own copy.
+> > - `*ngIf` / `*ngFor` still work, but since **v17** the built-in control flow `@if` / `@for` / `@switch` is the recommended way.
+> > - "Standalone recommended in v15+": standalone became **stable** in v15, `ng new` generates it from **v17**, and `standalone: true` is the **default since v19**.
+>
 > 💡 **Hack:** *what you see (component), what you share (service), what you tweak (directive / pipe), where you go (router).*
 
 > [!question]- Q4. Standalone components vs NgModules?

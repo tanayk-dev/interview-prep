@@ -674,6 +674,26 @@ button.pill:hover {
   color: var(--muted);
 }
 
+/* inlined SVG diagrams (remark-inline-svg): scroll sideways on phones instead of shrinking the text */
+.diagram {
+  margin: 14px 0;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  overflow-x: auto;
+}
+.diagram svg {
+  display: block;
+  width: 100%;
+  min-width: 820px;
+  height: auto;
+}
+.diagram figcaption {
+  padding: 8px 12px;
+  border-top: 1px solid var(--border);
+  font-size: 13px;
+  color: var(--muted);
+}
+
 /* ---------- callouts (Obsidian style) ---------- */
 .callout {
   --cc: var(--ctp-blue);
