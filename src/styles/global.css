@@ -684,8 +684,12 @@ button.pill:hover {
 .diagram svg {
   display: block;
   width: 100%;
-  min-width: 820px;
   height: auto;
+}
+@media (max-width: 860px) {
+  .diagram svg {
+    min-width: 820px;
+  }
 }
 .diagram figcaption {
   padding: 8px 12px;
