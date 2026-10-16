@@ -343,7 +343,7 @@ kbd {
   border-color: rgba(var(--ctp-accent), 0.6);
 }
 .icon-btn {
-  display: none;
+  display: grid;
   place-items: center;
   width: 36px;
   height: 36px;
@@ -353,6 +353,12 @@ kbd {
 }
 .icon-btn:hover {
   background: rgb(var(--ctp-surface0));
+}
+.icon-btn {
+  color: var(--muted);
+}
+.icon-btn:hover {
+  color: var(--text);
 }
 .scrim {
   display: none;
@@ -1253,8 +1259,19 @@ details.callout:not([open]) > .callout-title {
     display: none;
   }
 }
+/* desktop: collapse the sidebar like Obsidian's left panel */
 @media (min-width: 861px) {
-  .nav-close {
+  .sidebar {
+    transition: margin-left 0.25s ease, visibility 0.25s;
+  }
+  [data-sidebar='collapsed'] .sidebar {
+    margin-left: calc(-1 * var(--side-w));
+    visibility: hidden;
+  }
+  .topbar .nav-toggle {
+    margin-left: -8px;
+  }
+  :root:not([data-sidebar='collapsed']) .topbar .nav-toggle {
     display: none;
   }
 }

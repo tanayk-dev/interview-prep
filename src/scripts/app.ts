@@ -32,11 +32,28 @@ $$('[data-theme-toggle]').forEach((btn) =>
   }),
 );
 
-/* ---------- mobile nav ---------- */
+/* ---------- sidebar: drawer on mobile, collapsible on desktop ---------- */
+const mobile = matchMedia('(max-width: 860px)');
 const setNav = (open: boolean) => document.body.classList.toggle('nav-open', open);
-$$('[data-open-nav]').forEach((b) => b.addEventListener('click', () => setNav(true)));
+function toggleSidebar() {
+  if (mobile.matches) return setNav(!document.body.classList.contains('nav-open'));
+  const root = document.documentElement;
+  const collapsed = root.dataset.sidebar !== 'collapsed';
+  if (collapsed) root.dataset.sidebar = 'collapsed';
+  else delete root.dataset.sidebar;
+  try {
+    localStorage.setItem('ip:sidebar', collapsed ? 'collapsed' : 'open');
+  } catch {}
+}
+$$('[data-toggle-nav]').forEach((b) => b.addEventListener('click', toggleSidebar));
 $$('[data-close-nav]').forEach((b) => b.addEventListener('click', () => setNav(false)));
-document.addEventListener('keydown', (e) => e.key === 'Escape' && setNav(false));
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') setNav(false);
+  if (e.key === '\\' && (e.ctrlKey || e.metaKey)) {
+    e.preventDefault();
+    toggleSidebar();
+  }
+});
 
 /* ---------- progress ---------- */
 const DONE_KEY = 'ip:done';
